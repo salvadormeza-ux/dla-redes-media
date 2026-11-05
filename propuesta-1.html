@@ -575,6 +575,7 @@ const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)retu
  if(el.id==='clock'){document.getElementById('arc').style.strokeDashoffset=0;count(document.getElementById('mins'),60,2400)}
  io.unobserve(el)}),{threshold:.15});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>el.classList.add('in')),2200);
 </script>
 <a class="dla-back" href="index.html" aria-label="Volver a las propuestas">← Propuestas · <b>1 de 3</b></a>
 <style>.dla-back{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;font:600 13px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;background:rgba(17,26,34,.88);backdrop-filter:blur(8px);padding:11px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none}.dla-back b{color:#ff6a3a}.dla-back:hover{background:#111a22}@media (max-width:860px){.dla-back{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}</style>

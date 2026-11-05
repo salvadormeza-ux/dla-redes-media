@@ -1005,7 +1005,8 @@ document.querySelectorAll('.rv,#proc').forEach(el=>io.observe(el));
 // respaldo: si el navegador no informa la visibilidad, mostrar todo
 setTimeout(()=>{document.querySelectorAll('.rv:not(.in)').forEach(el=>{el.classList.add('in');el.querySelectorAll&&el.querySelectorAll('[data-c]').forEach(n=>{n.textContent=n.dataset.c})});const pr=document.getElementById('proc');pr&&pr.classList.add('in');const ar=document.getElementById('arc');if(ar&&ar.style.strokeDashoffset!=='0'){ar.style.strokeDashoffset=0;document.getElementById('gmin').textContent=60}},2200);
 </script>
+<script>if(window.top!==window.self)document.documentElement.classList.add("in-viewer")</script>
 <a class="dla-back" href="index.html" aria-label="Volver a las propuestas">← Propuestas · <b>2 de 3</b></a>
-<style>.dla-back{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;font:600 13px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;background:rgba(17,26,34,.88);backdrop-filter:blur(8px);padding:11px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none}.dla-back b{color:#ff6a3a}.dla-back:hover{background:#111a22}@media (max-width:860px){.dla-back{bottom:calc(20px + env(safe-area-inset-bottom,0px))}}</style>
+<style>.dla-back{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;font:600 13px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;background:rgba(17,26,34,.88);backdrop-filter:blur(8px);padding:11px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none}.in-viewer .dla-back{display:none}.dla-back b{color:#ff6a3a}.dla-back:hover{background:#111a22}@media (max-width:860px){.dla-back{bottom:calc(20px + env(safe-area-inset-bottom,0px))}}</style>
 </body>
 </html>

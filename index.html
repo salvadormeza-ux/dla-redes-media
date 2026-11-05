@@ -4,240 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Propuestas web PTC Mining</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Tres propuestas de diseño para el nuevo sitio web de PTC Mining & Products, preparadas por Informática DLA.">
+<meta name="description" content="Tres propuestas de diseño para el nuevo sitio web de PTC Mining, preparadas por Informática DLA.">
 <link rel="icon" type="image/svg+xml" href="assets/isotipo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-/* Portada de propuestas — sala de presentación: tres láminas comparables, lado a lado, con lo que aprendimos del rubro */
+/* Visor de propuestas — una barra de presentación y la propuesta a pantalla completa debajo */
 :root{
-  --bg:#eef0ef;
-  --card:#ffffff;
-  --ink:#111a22;
-  --mute:#5c6872;
-  --line:#d8dddf;
+  --bar:#0d1217;
+  --bar-2:#161d24;
+  --line:#26303a;
+  --txt:#c9d2da;
+  --mute:#7e8b96;
+  --white:#ffffff;
   --or:#f2460c;
-  --or-d:#c7380a;
-  --disp:'Barlow Semi Condensed','Arial Narrow',Arial,sans-serif;
+  --stage:#1a2027;
   --body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
-  color-scheme:light;
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html,body{height:100%}
+body{background:var(--bar);color:var(--txt);font-family:var(--body);display:flex;flex-direction:column;overflow:hidden}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--or);outline-offset:3px}
-.wrap{max-width:1240px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--disp);line-height:1;text-wrap:balance}
-.k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-d)}
+button{font:inherit;cursor:pointer;color:inherit;background:none;border:0}
+:focus-visible{outline:2px solid var(--or);outline-offset:2px}
 
-.top{padding-block:28px;border-bottom:1px solid var(--line);background:var(--card)}
-.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-.top img{height:52px;width:auto}
-.top .by{font-size:14px;color:var(--mute);text-align:right}
-.top .by b{color:var(--ink);display:block;font-size:15px}
+.bar{flex:none;display:flex;align-items:center;gap:20px;height:64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:env(safe-area-inset-top,0px);box-sizing:content-box;background:var(--bar);border-bottom:1px solid var(--line);position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:14px;flex:none}
+.brand img{height:34px;width:auto;display:block}
+.brand span{font-size:13px;line-height:1.25;color:var(--mute);border-left:1px solid var(--line);padding-left:14px}
+.brand span b{display:block;color:var(--white);font-weight:600;font-size:14px}
 
-.intro{padding-block:72px 48px}
-.intro h1{font-size:clamp(48px,7vw,96px);font-weight:800;text-transform:uppercase;margin:16px 0 20px;max-width:980px}
-.intro h1 span{color:var(--or)}
-.intro p{font-size:19px;color:var(--mute);max-width:640px}
+.tabs{flex:1;display:flex;justify-content:center;gap:6px;min-width:0}
+.tab{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:8px;border:1px solid transparent;transition:background .2s,border-color .2s;white-space:nowrap}
+.tab i{font-style:normal;font-family:var(--mono);font-size:12px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--mute);flex:none}
+.tab b{font-weight:600;font-size:15px;color:var(--txt)}
+.tab small{font-size:12px;color:var(--mute);display:block;margin-top:1px}
+.tab:hover{background:var(--bar-2)}
+.tab[aria-current="true"]{background:var(--bar-2);border-color:var(--line)}
+.tab[aria-current="true"] i{background:var(--or);border-color:var(--or);color:#fff}
+.tab[aria-current="true"] b{color:var(--white)}
 
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-bottom:80px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
-.card:hover{transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(17,26,34,.45)}
-.prev{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.body{padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
-.body .n{font-family:var(--mono);font-size:12px;color:var(--mute);letter-spacing:.1em}
-.body h2{font-size:34px;font-weight:800;text-transform:uppercase}
-.body p{color:var(--mute);font-size:15.5px}
-.body ul{list-style:none;display:grid;gap:7px;font-size:15px;margin-top:4px}
-.body li{display:grid;grid-template-columns:14px 1fr;gap:10px}
-.body li::before{content:"";width:7px;height:7px;background:var(--or);margin-top:9px}
-.insp{font-size:13.5px;color:var(--mute);border-top:1px dashed var(--line);padding-top:12px;margin-top:auto}
-.insp b{color:var(--ink);font-weight:600}
-.go{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:#fff;font-weight:600;padding:15px 20px;border-radius:6px;margin-top:6px}
-.go:hover{background:var(--or)}
+.tools{flex:none;display:flex;align-items:center;gap:8px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;padding:3px}
+.seg button{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:5px;font-size:13px;font-weight:600;color:var(--mute)}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:var(--bar-2);color:var(--white)}
+.open{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:9px 12px;border-radius:8px;border:1px solid var(--line)}
+.open:hover{border-color:var(--txt);color:var(--white)}
+.open svg{width:14px;height:14px}
+.info{font-size:13px;font-weight:600;padding:9px 12px;border-radius:8px;color:var(--mute)}
+.info:hover{color:var(--white)}
 
-/* miniaturas */
-.p1{background:#fff}
-.p1 .h{height:58%;background:linear-gradient(90deg,rgba(15,27,38,.95),rgba(15,27,38,.55)),repeating-linear-gradient(135deg,#2a3b49 0 3px,#1b2a37 3px 16px);padding:9% 7%;color:#fff}
-.p1 .h i{display:block;height:9px;width:62%;background:#fff;border-radius:2px;margin-bottom:6px}
-.p1 .h i.o{background:#f2460c;width:44%}
-.p1 .h u{display:inline-block;margin-top:10px;width:24%;height:12px;background:#f2460c;border-radius:3px}
-.p1 .n2{height:9%;background:#0f1b26;display:flex;gap:5px;align-items:center;padding:0 7%}
-.p1 .n2 s{display:block;width:12%;height:5px;border:1px solid rgba(255,255,255,.4);border-radius:2px}
-.p1 .g{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:5% 7%}
-.p1 .g b{display:block;height:34px;background:#f4f5f3;border-radius:4px}
-.p2{background:#0a0c0e}
-.p2 canvas{position:absolute;inset:0;width:100%;height:100%}
-.p2 .t{position:absolute;left:7%;top:24%;z-index:1}
-.p2 .t i{display:block;height:11px;width:150px;background:#f4f6f8;margin-bottom:6px}
-.p2 .t i.o{background:#f2460c;width:110px}
-.p2 .t i.s{background:transparent;border:1px solid #f4f6f8;width:130px}
-.p3{background:#f3f4f2;display:grid;grid-template-columns:1fr 1.1fr;gap:8%;padding:8% 7%}
-.p3 .l i{display:block;height:10px;background:#121518;margin-bottom:6px;width:90%}
-.p3 .l i.o{background:#f2460c;width:70%}
-.p3 .l s{display:block;height:4px;background:#c3c7c5;margin-top:10px;width:80%}
-.p3 .r{background:#fff;border:1px solid #d9dcda;border-radius:4px;padding:8%;display:grid;gap:6px;align-content:start}
-.p3 .r em{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.p3 .r em b{height:20px;border:1px solid #d9dcda;border-radius:3px}
-.p3 .r em b:first-child{border-color:#f2460c;background:#fde4da}
-.p3 .r u{display:block;height:8px;width:60%;background:#121518;border-radius:2px;margin-top:6px}
-.p3 .r s{display:block;height:4px;width:85%;background:#d9dcda}
-.tagp{position:absolute;right:10px;top:10px;z-index:2;font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.9);color:var(--ink);padding:4px 8px;border-radius:4px}
+.stage{flex:1;position:relative;min-height:0;background:var(--stage);display:flex;justify-content:center;align-items:stretch}
+.frame-wrap{position:relative;width:100%;height:100%;transition:width .35s ease,height .35s ease,margin .35s ease}
+iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.stage.phone{align-items:center;padding-block:18px}
+.stage.phone .frame-wrap{width:390px;height:min(800px,100%);border-radius:34px;overflow:hidden;box-shadow:0 0 0 10px #05080a,0 0 0 11px #2c3640,0 30px 60px rgba(0,0,0,.55)}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--mute);background:var(--stage);transition:opacity .3s;pointer-events:none}
+.loading.done{opacity:0}
 
-/* investigación */
-.res{background:var(--card);border-top:1px solid var(--line);padding-block:80px}
-.res-h{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:40px}
-.res-h h2{font-size:clamp(38px,4.6vw,62px);font-weight:800;text-transform:uppercase;margin-top:12px}
-.res-h p{color:var(--mute)}
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
-table{width:100%;border-collapse:collapse;min-width:720px;font-size:15.5px}
-th{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:500;padding:14px 18px;background:var(--bg)}
-td{padding:16px 18px;border-top:1px solid var(--line);vertical-align:top}
-td:first-child{font-weight:700;white-space:nowrap}
-td .pp{display:inline-block;font-family:var(--mono);font-size:11.5px;background:#fde4da;color:var(--or-d);padding:3px 8px;border-radius:4px;white-space:nowrap}
-.common{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
-.common div{background:var(--bg);border-radius:8px;padding:20px}
-.common b{font-family:var(--disp);font-size:22px;font-weight:800;display:block;margin-bottom:4px}
-.common span{font-size:14.5px;color:var(--mute)}
-
-.inc{padding-block:70px}
-.inc-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:50px}
-.inc h2{font-size:clamp(36px,4.2vw,56px);font-weight:800;text-transform:uppercase;margin-top:12px}
-.inc ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.inc li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-size:15.5px}
-.inc li b{display:block}
-.inc li span{color:var(--mute);font-size:14px}
-
-footer{background:var(--ink);color:#aab4bc;padding-block:40px calc(40px + env(safe-area-inset-bottom,0px));font-size:15px}
-footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer b{color:#fff}
-
-@media (max-width:1024px){.cards{grid-template-columns:1fr;max-width:620px}.res-h,.inc-grid{grid-template-columns:1fr;gap:16px}.common{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.common,.inc ul{grid-template-columns:1fr}.top .by{text-align:left}.intro{padding-block:48px 36px}}
+@media (max-width:1180px){.tab small{display:none}.brand span{display:none}}
+@media (max-width:900px){
+  .bar{flex-wrap:wrap;height:auto;padding-block:10px;gap:10px}
+  .brand{order:1}
+  .tools{order:2;margin-left:auto}
+  .tabs{order:3;flex-basis:100%;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .seg,.info{display:none}
+}
+@media (max-width:420px){.open span{display:none}.tab{padding:8px 12px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <img src="assets/logo.svg" alt="PTC · Patagon Technologies Corp">
-    <div class="by"><b>Propuesta de diseño web</b>Preparada por Informática DLA · Noviembre 2026</div>
+<header class="bar">
+  <a class="brand" href="resumen.html" aria-label="Resumen de las propuestas">
+    <img src="assets/logo-blanco.svg" alt="PTC · Patagon Technologies Corp">
+    <span><b>Propuestas sitio web</b>Informática DLA</span>
+  </a>
+  <nav class="tabs" aria-label="Propuestas">
+    <a class="tab" href="#p1" data-p="1"><i>1</i><span><b>Corporativa</b><small>Clara y fotográfica</small></span></a>
+    <a class="tab" href="#p2" data-p="2"><i>2</i><span><b>Ingeniería digital</b><small>Oscura con 3D</small></span></a>
+    <a class="tab" href="#p3" data-p="3"><i>3</i><span><b>Catálogo técnico</b><small>Selector y calculadora</small></span></a>
+  </nav>
+  <div class="tools">
+    <div class="seg" role="group" aria-label="Vista">
+      <button id="v-desk" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Escritorio</button>
+      <button id="v-phone" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Celular</button>
+    </div>
+    <a class="info" href="resumen.html">Resumen</a>
+    <a class="open" id="open" href="propuesta-1.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg><span>Pantalla completa</span></a>
   </div>
 </header>
 
-<section class="intro">
-  <div class="wrap">
-    <span class="k">Nuevo sitio ptctech.cl</span>
-    <h1>Tres caminos para un sitio a la altura de <span>la Gran Minería</span></h1>
-    <p>Revisamos cómo se presentan los principales proveedores del rubro y diseñamos tres propuestas con el contenido actual de PTC. Las tres son funcionales: se pueden navegar, probar en el celular y cotizar por WhatsApp.</p>
+<main class="stage" id="stage">
+  <div class="frame-wrap">
+    <iframe id="frame" title="Propuesta de sitio web PTC" src="propuesta-1.html"></iframe>
+    <div class="loading" id="loading">CARGANDO PROPUESTA…</div>
   </div>
-</section>
-
-<div class="wrap">
-  <div class="cards">
-    <article class="card">
-      <div class="prev p1" aria-hidden="true"><span class="tagp">Claro · fotográfico</span><div class="h"><i></i><i class="o"></i><u></u></div><div class="n2"><s></s><s></s><s></s><s></s></div><div class="g"><b></b><b></b><b></b></div></div>
-      <div class="body">
-        <span class="n">PROPUESTA 01</span>
-        <h2>Corporativa</h2>
-        <p>Un sitio de proveedor industrial sólido y fácil de recorrer, pensado para que jefaturas de abastecimiento encuentren rápido lo que buscan.</p>
-        <ul><li>Hero fotográfico y franja de normas</li><li>Catálogo por pestañas con especificaciones</li><li>Operaciones Chile y Perú con "cómo llegar"</li><li>Cotización en 3 pasos por WhatsApp</li></ul>
-        <p class="insp">Inspirada en <b>Kal Tire Mining</b> y en el sitio de <b>JORMASMI</b>.</p>
-        <a class="go" href="propuesta-1.html">Ver propuesta <span>→</span></a>
-      </div>
-    </article>
-    <article class="card">
-      <div class="prev p2" aria-hidden="true"><span class="tagp">Oscuro · 3D</span><canvas id="mini"></canvas><div class="t"><i></i><i class="o"></i><i class="s"></i></div></div>
-      <div class="body">
-        <span class="n">PROPUESTA 02</span>
-        <h2>Ingeniería digital</h2>
-        <p>Una experiencia de alto impacto que posiciona a PTC como proveedor tecnológico, con herramientas interactivas que ningún competidor local ofrece.</p>
-        <ul><li>Terreno minero 3D animado</li><li>Mapa del proceso: del rajo a la planta</li><li>Configurador de cinta con envío directo</li><li>Planos técnicos animados por línea</li></ul>
-        <p class="insp">Inspirada en <b>Rema Tip Top</b> y <b>ContiTech</b>.</p>
-        <a class="go" href="propuesta-2.html">Ver propuesta <span>→</span></a>
-      </div>
-    </article>
-    <article class="card">
-      <div class="prev p3" aria-hidden="true"><span class="tagp">Técnico · catálogo</span><div class="l"><i></i><i></i><i class="o"></i><s></s><s></s></div><div class="r"><em><b></b><b></b><b></b></em><u></u><s></s><s></s></div></div>
-      <div class="body">
-        <span class="n">PROPUESTA 03</span>
-        <h2>Catálogo técnico</h2>
-        <p>Un sitio que vende resolviendo: el cliente dice qué problema tiene y el sitio le recomienda la línea PTC con su ficha técnica.</p>
-        <ul><li>Selector de soluciones en la portada</li><li>Índice de líneas con fichas desplegables</li><li>Calculadora de toneladas por detención</li><li>Solicitud de fichas técnicas</li></ul>
-        <p class="insp">Inspirada en <b>Semperit / Sempertrans</b> y <b>Fenner Dunlop</b>.</p>
-        <a class="go" href="propuesta-3.html">Ver propuesta <span>→</span></a>
-      </div>
-    </article>
-  </div>
-</div>
-
-<section class="res">
-  <div class="wrap">
-    <div class="res-h">
-      <div><span class="k">Lo que hacen los líderes</span><h2>Investigación del rubro</h2></div>
-      <p>Estos son los proveedores con los que PTC compite por las mismas faenas, y lo que cada propuesta toma de ellos.</p>
-    </div>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Empresa</th><th>Qué vende</th><th>Cómo se presenta en su sitio</th><th>Lo usamos en</th></tr></thead>
-        <tbody>
-          <tr><td>Kal Tire Mining</td><td>Gestión, reparación y reencauche de neumáticos OTR (planta en La Negra)</td><td>Video de faena en portada, servicios ordenados por etapa de vida del neumático, herramientas digitales propias, verificación ISO y selector de regiones.</td><td><span class="pp">Propuesta 01</span></td></tr>
-          <tr><td>Semperit / Sempertrans</td><td>Correas textiles y de cable de acero</td><td>Catálogo por familia de producto, cubiertas por condición de uso (abrasión, calor, aceite), plantas de fabricación, servicio en terreno y descargas.</td><td><span class="pp">Propuesta 03</span></td></tr>
-          <tr><td>Rema Tip Top · Dunlop</td><td>Correas, monitoreo de correas, revestimientos y servicio</td><td>"Una marca, una fuente, un sistema"; destacan servicio posterior al suministro, tiempos de instalación y sucursales en Calama, Antofagasta y Copiapó.</td><td><span class="pp">Propuesta 02</span></td></tr>
-          <tr><td>ContiTech</td><td>Correas de alta tensión y grandes dimensiones</td><td>Soluciones de transporte completas, catálogos técnicos descargables y énfasis en ingeniería.</td><td><span class="pp">Propuesta 02</span></td></tr>
-          <tr><td>Fenner Dunlop</td><td>Correas transportadoras</td><td>Navegación por industria y aplicación minera.</td><td><span class="pp">Propuesta 03</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="common">
-      <div><b>Imagen de faena</b><span>Todos abren con la operación real, no con texto.</span></div>
-      <div><b>Producto por aplicación</b><span>Ordenan el catálogo según el problema del cliente.</span></div>
-      <div><b>Respaldo técnico</b><span>Normas, certificaciones y fichas a la vista.</span></div>
-      <div><b>Presencia local</b><span>Muestran dónde están y qué tan rápido llegan.</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="inc">
-  <div class="wrap inc-grid">
-    <div><span class="k">En las tres propuestas</span><h2>Incluido en todas</h2></div>
-    <ul>
-      <li><b>Adaptado a celular</b><span>Navegación y cotización pensadas para el teléfono.</span></li>
-      <li><b>Cotización por WhatsApp</b><span>El mensaje llega a ventas ya redactado.</span></li>
-      <li><b>Contenido actual de PTC</b><span>Líneas, especificaciones, bases y datos de contacto reales.</span></li>
-      <li><b>Logo e identidad PTC</b><span>Se aplica el logo oficial de la empresa.</span></li>
-      <li><b>Preguntas frecuentes</b><span>Resuelve dudas antes de la primera llamada.</span></li>
-      <li><b>Listo para publicar</b><span>Sitio liviano, rápido y fácil de mantener.</span></li>
-    </ul>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap"><span><b>Informática DLA</b> · informaticadla.cl</span><span>Salvador Meza · salvador.meza@informaticadla.cl</span></div>
-</footer>
+</main>
 
 <script>
-// miniatura animada de la propuesta 2 (malla de terreno en canvas 2D)
-(function(){
-  const c=document.getElementById('mini');if(!c)return;const x=c.getContext('2d');
-  let w,h;function size(){const r=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);w=r.width;h=r.height;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)}
-  size();addEventListener('resize',size);
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function frame(t){
-    x.clearRect(0,0,w,h);x.strokeStyle='rgba(242,70,12,.42)';x.lineWidth=1;
-    const rows=16,cols=28,ph=t/2400;
-    for(let j=0;j<rows;j++){x.beginPath();
-      for(let i=0;i<=cols;i++){const u=i/cols,v=j/rows;
-        const px=w*.15+u*w*1.0-v*w*.15,py=h*.42+v*h*.62+Math.sin(u*6+ph+v*3)*h*.035*(1-v*.4)-Math.max(0,.3-Math.hypot(u-.7,v-.4))*h*.4;
-        i?x.lineTo(px,py):x.moveTo(px,py)}x.stroke()}
-    if(!reduce)requestAnimationFrame(frame)}
-  requestAnimationFrame(frame);
-})();
+const frame=document.getElementById('frame'),loading=document.getElementById('loading'),open=document.getElementById('open'),stage=document.getElementById('stage');
+const tabs=[...document.querySelectorAll('.tab')];
+let current=null;
+function show(n){
+  if(!['1','2','3'].includes(n))n='1';
+  tabs.forEach(t=>t.setAttribute('aria-current',t.dataset.p===n));
+  open.href='propuesta-'+n+'.html';
+  if(current!==n){current=n;loading.classList.remove('done');frame.src='propuesta-'+n+'.html'}
+  const t=tabs.find(t=>t.dataset.p===n);t&&t.scrollIntoView({inline:'center',block:'nearest'});
+}
+frame.addEventListener('load',()=>setTimeout(()=>loading.classList.add('done'),250));
+setTimeout(()=>loading.classList.add('done'),6000);
+function fromHash(){const m=location.hash.match(/^#p([123])$/);show(m?m[1]:'1')}
+addEventListener('hashchange',fromHash);fromHash();
+document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(['1','2','3'].includes(e.key))location.hash='p'+e.key});
+const vd=document.getElementById('v-desk'),vp=document.getElementById('v-phone');
+function view(phone){stage.classList.toggle('phone',phone);vd.setAttribute('aria-pressed',!phone);vp.setAttribute('aria-pressed',phone)}
+vd.onclick=()=>view(false);vp.onclick=()=>view(true);
 </script>
 </body>
 </html>

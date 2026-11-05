@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PTC Mining · Catálogo técnico y selector de soluciones</title>
+<meta name="description" content="Encuentre la solución PTC para su correa, flota o planta: selector técnico, fichas de producto y calculadora de toneladas por detención.">
+<link rel="icon" type="image/svg+xml" href="assets/isotipo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Propuesta 3 · Catálogo técnico — hoja de especificaciones de fabricante: selector en el hero, índice de líneas, calculadora */
+:root{
+  --bg:#f3f4f2;        /* gris concreto claro */
+  --card:#ffffff;
+  --ink:#121518;
+  --mute:#5f676e;
+  --line:#d9dcda;
+  --line-2:#c3c7c5;
+  --or:#f2460c;
+  --or-d:#c7380a;
+  --or-t:#fde4da;
+  --dark:#16191c;
+  --disp:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --max:1280px;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--disp);text-transform:uppercase;line-height:.92;letter-spacing:.005em;text-wrap:balance}
+.mono{font-family:var(--mono)}
+.code{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--mute)}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--or-d)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:15.5px;padding:14px 22px;border:1.5px solid transparent;border-radius:3px;transition:background .2s,border-color .2s,color .2s}
+.btn svg{width:17px;height:17px}
+.btn-or{background:var(--or);color:#fff}
+.btn-or:hover{background:var(--or-d)}
+.btn-ln{border-color:var(--ink);background:transparent}
+.btn-ln:hover{background:var(--ink);color:#fff}
+.btn-dk{background:var(--ink);color:#fff}
+.btn-dk:hover{background:#2a3036}
+
+/* barra utilitaria + header */
+.util{background:var(--dark);color:#aab2b8;font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.util .wrap{display:flex;justify-content:space-between;gap:16px;height:36px;align-items:center}
+.util .r{display:flex;gap:22px}
+.util a:hover{color:#fff}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(243,244,242,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:30px;height:74px}
+.logo{display:flex;align-items:center;margin-right:auto}
+.logo img{height:44px;width:auto}
+.nav{display:flex;gap:26px}
+.nav a{font-weight:600;font-size:15px}
+.nav a:hover{color:var(--or-d)}
+.burger{display:none;background:none;border:0;width:44px;height:44px}
+.burger svg{width:26px;height:26px}
+
+/* hero con selector */
+.hero{padding-block:64px 80px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start}
+.hero h1{font-size:clamp(58px,8vw,118px);font-weight:900;margin:18px 0 22px}
+.hero h1 em{font-style:normal;color:var(--or)}
+.hero .lead{font-size:19px;color:var(--mute);max-width:520px;margin-bottom:30px}
+.hero-meta{display:grid;grid-template-columns:repeat(3,auto);gap:30px;justify-content:start;padding-top:26px;border-top:1px solid var(--line)}
+.hero-meta b{display:block;font-family:var(--disp);font-size:44px;font-weight:800;line-height:1}
+.hero-meta span{font-size:13px;color:var(--mute)}
+
+.sel{background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 30px 60px -40px rgba(18,21,24,.45);overflow:hidden}
+.sel-h{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid var(--line);background:#fafbfa}
+.sel-h b{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.sel-steps{display:flex;gap:6px}
+.sel-steps i{width:28px;height:4px;border-radius:2px;background:var(--line)}
+.sel-steps i.on{background:var(--or)}
+.sel-b{padding:24px 22px 26px}
+.sel-q{font-weight:700;font-size:19px;margin-bottom:14px}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.zone{border:1.5px solid var(--line);background:#fff;border-radius:5px;padding:14px 12px;text-align:left;display:grid;gap:8px;transition:.2s}
+.zone svg{width:34px;height:34px;color:var(--mute)}
+.zone b{font-size:15px;line-height:1.25}
+.zone:hover{border-color:var(--ink)}
+.zone[aria-pressed="true"]{border-color:var(--or);background:var(--or-t)}
+.zone[aria-pressed="true"] svg{color:var(--or-d)}
+.syms{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.sym{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:8px 14px;font-size:14.5px;font-weight:500;transition:.2s}
+.sym:hover{border-color:var(--ink)}
+.sym[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.res{border-top:1px dashed var(--line-2);padding-top:20px;display:grid;gap:12px}
+.res .rc{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--or-d);text-transform:uppercase}
+.res h3{font-size:36px;font-weight:800}
+.res p{color:var(--mute);font-size:15px}
+.res ul{list-style:none;display:grid;gap:6px;font-size:14.5px}
+.res li{display:grid;grid-template-columns:16px 1fr;gap:10px}
+.res li::before{content:"";width:8px;height:8px;background:var(--or);margin-top:8px}
+.res .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+/* secciones */
+section{padding-block:100px}
+.sh{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:46px}
+.sh h2{font-size:clamp(46px,6vw,86px);font-weight:900;margin-top:12px}
+.sh p{color:var(--mute);font-size:17.5px;max-width:520px}
+
+/* índice de líneas */
+.idx{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.idx-row{display:grid;grid-template-columns:96px 120px 1.3fr 1fr 1fr 44px;gap:22px;align-items:center;padding:18px 22px;border-top:1px solid var(--line);cursor:pointer;transition:background .2s;width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;font:inherit}
+.idx-row:first-of-type{border-top:0}
+.idx-row:hover{background:#fafbfa}
+.idx-head{display:grid;grid-template-columns:96px 120px 1.3fr 1fr 1fr 44px;gap:22px;padding:12px 22px;background:var(--dark);color:#aab2b8;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.thumb{width:96px;height:64px;border-radius:3px;overflow:hidden;position:relative;background:linear-gradient(135deg,#2a3036,#16191c)}
+.thumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(242,70,12,.18) 0 2px,transparent 2px 12px)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.2)}
+.idx-row .nm{font-family:var(--disp);font-size:28px;font-weight:800;text-transform:uppercase;line-height:1}
+.idx-row .ap{color:var(--mute);font-size:14.5px}
+.idx-row .nr{font-family:var(--mono);font-size:12.5px}
+.idx-row .pl{width:34px;height:34px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:20px;transition:transform .25s}
+.idx-row[aria-expanded="true"] .pl{transform:rotate(45deg);background:var(--ink);color:#fff}
+.sheet{display:none;grid-template-columns:1fr 1fr;gap:40px;padding:8px 22px 30px 260px;border-top:0}
+.sheet.open{display:grid}
+.sheet p{color:var(--mute)}
+.spec{width:100%;border-collapse:collapse;font-size:14.5px}
+.spec th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;font-weight:500;padding:10px 12px 10px 0;width:36%;vertical-align:top;border-bottom:1px solid var(--line)}
+.spec td{padding:10px 0;border-bottom:1px solid var(--line)}
+.sheet .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+/* calculadora */
+.calc{background:var(--dark);color:#e6e9eb}
+.calc .sh p{color:#9aa3a9}
+.calc .kicker{color:var(--or)}
+.calc h2{color:#fff}
+.calc-box{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid #2c3237;border-radius:6px;overflow:hidden}
+.calc-in{padding:36px;border-right:1px solid #2c3237;display:grid;gap:28px}
+.fld label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9aa3a9;margin-bottom:12px}
+.fld output{font-family:var(--disp);font-size:30px;font-weight:800;color:#fff;letter-spacing:.02em;text-transform:none;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:#2c3237;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--or);border:4px solid var(--dark);box-shadow:0 0 0 1.5px var(--or);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--or);border:4px solid var(--dark);cursor:pointer}
+.fld small{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:#6c757c;margin-top:8px}
+.calc-out{padding:36px;display:flex;flex-direction:column;gap:18px;background:#1c2024}
+.big-out{border-bottom:1px solid #2c3237;padding-bottom:22px}
+.big-out>span{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9aa3a9}
+.big-out b{display:block;font-family:var(--disp);font-size:clamp(60px,8vw,104px);font-weight:900;line-height:.95;color:#fff;font-variant-numeric:tabular-nums}
+.big-out b small{font-size:.4em;color:var(--or);margin-left:6px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mini div{border:1px solid #2c3237;border-radius:5px;padding:16px}
+.mini span{font-size:13px;color:#9aa3a9;display:block}
+.mini b{font-family:var(--disp);font-size:34px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:120px 1fr 64px;gap:12px;align-items:center;font-size:13.5px}
+.bar i{display:block;height:14px;border-radius:2px;background:#2c3237;position:relative;overflow:hidden}
+.bar i em{position:absolute;inset:0 auto 0 0;background:#6c757c;transition:width .4s}
+.bar.ms i em{background:var(--or)}
+.bar b{font-family:var(--mono);font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.calc-note{font-size:13px;color:#7d868c}
+
+/* Mineservice ficha */
+.ms-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
+.ms-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:34px;position:relative;overflow:hidden}
+.ms-card{border-top:4px solid var(--or)}
+.ms-card>*{position:relative;z-index:1}
+.ms-card h3{font-size:48px;font-weight:900;margin:8px 0 14px}
+.ms-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.ms-kpis div{background:var(--bg);border-radius:4px;padding:16px}
+.ms-kpis b{display:block;font-family:var(--disp);font-size:44px;font-weight:900;line-height:1;color:var(--or-d)}
+.ms-kpis span{font-size:13px;color:var(--mute)}
+.steps{counter-reset:s;display:grid;gap:0}
+.step{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line)}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step b{font-family:var(--disp);font-size:40px;font-weight:900;color:var(--or);line-height:1}
+.step h3{font-size:26px;font-weight:800;margin-bottom:4px}
+.step p{color:var(--mute);font-size:15px}
+
+/* servicios */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc article{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:28px 24px;display:flex;flex-direction:column;gap:10px}
+.svc .ic{width:46px;height:46px;border-radius:4px;background:var(--or-t);color:var(--or-d);display:grid;place-items:center;margin-bottom:6px}
+.svc .ic svg{width:24px;height:24px}
+.svc h3{font-size:28px;font-weight:800}
+.svc p{color:var(--mute);font-size:15px}
+
+/* descargas */
+.dl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dl button{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;text-align:left;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;transition:border-color .2s}
+.dl button:hover{border-color:var(--ink)}
+.dl .doc{width:44px;height:54px;border:1.5px solid var(--ink);border-radius:3px;position:relative;display:grid;place-items:end center;padding-bottom:6px;font-family:var(--mono);font-size:9px;font-weight:500}
+.dl .doc::before{content:"";position:absolute;top:-1.5px;right:-1.5px;width:12px;height:12px;background:var(--bg);border-left:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.dl b{display:block;font-size:16px}
+.dl span{font-size:13px;color:var(--mute)}
+.dl i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--or-d)}
+
+/* presencia + contacto */
+.end{background:var(--card);border-top:1px solid var(--line)}
+.end-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px}
+.sites{display:grid;gap:12px;margin-top:26px}
+.site{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center;padding:18px;border:1px solid var(--line);border-radius:6px}
+.site b.cc{font-family:var(--disp);font-size:36px;font-weight:900;color:var(--or);line-height:1}
+.site h3{font-size:24px;font-weight:800}
+.site p{color:var(--mute);font-size:14.5px}
+.contact{display:grid;gap:8px;margin-top:26px;font-weight:600}
+.contact span{user-select:all}
+form{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+form .full{grid-column:1/-1}
+form label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+form input,form select,form textarea{width:100%;background:#fff;border:1px solid var(--line-2);border-radius:3px;font:inherit;font-size:15.5px;padding:12px;color:var(--ink);outline:none}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--or)}
+form textarea{min-height:100px;resize:vertical}
+form h3{font-size:34px;font-weight:900}
+form .sub{color:var(--mute);font-size:14px;margin-top:4px}
+
+footer{background:var(--dark);color:#9aa3a9;font-size:14px;padding-block:44px calc(30px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer .logo img{height:48px}
+
+.wa{position:fixed;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.wa svg{width:28px;height:28px;fill:#fff}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:1100px){
+  .hero-grid,.sh,.calc-box,.ms-grid,.end-grid{grid-template-columns:minmax(0,1fr)}
+  .sh{gap:14px}
+  .calc-in{border-right:0;border-bottom:1px solid #2c3237}
+  .svc{grid-template-columns:1fr 1fr}
+  .dl{grid-template-columns:1fr 1fr}
+  .idx-head{display:none}
+  .idx-row{grid-template-columns:80px 1fr 40px;gap:16px}
+  .idx-row .cd,.idx-row .nr{display:none}
+  .idx-row .ap{grid-column:2}
+  .idx-row .nm{grid-column:2;grid-row:1}
+  .idx-row .thumb{grid-row:1/3;width:80px;height:60px}
+  .idx-row .pl{grid-row:1/3;grid-column:3}
+  .sheet{padding:6px 22px 26px;grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .nav{position:fixed;top:calc(110px + env(safe-area-inset-top,0px));left:0;right:0;background:var(--bg);flex-direction:column;gap:0;padding:6px max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);display:none}
+  .nav.open{display:flex}
+  .nav a{padding:14px 0;border-bottom:1px solid var(--line)}
+  .hdr .btn{display:none}
+  .burger{display:block}
+  .util .r a:not(:first-child){display:none}
+  section{padding-block:72px}
+}
+@media (max-width:600px){
+  .zones{grid-template-columns:1fr}
+  .zone{grid-template-columns:34px 1fr;align-items:center}
+  .hero-meta{grid-template-columns:repeat(3,1fr);gap:12px}
+  .hero-meta b{font-size:34px}
+  .svc,.dl,.mini,form{grid-template-columns:1fr}
+  .ms-kpis b{font-size:34px}
+  .bar{grid-template-columns:96px 1fr 56px}
+  .calc-in,.calc-out{padding:24px 18px}
+  form{padding:22px 16px}
+  .util .l{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="util"><div class="wrap"><span class="l">Antofagasta · Arequipa · Bolivia · Panamá</span><div class="r"><a href="tel:+56968462700">+56 9 6846 2700</a><span>contacto@ptcmining.cl</span></div></div></div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo"><img src="assets/logo.svg" alt="PTC · Patagon Technologies Corp"></a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#selector">Selector</a>
+      <a href="#lineas">Líneas</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#mineservice">Mineservice</a>
+      <a href="#fichas">Fichas técnicas</a>
+    </nav>
+    <a href="#contacto" class="btn btn-or">Solicitar propuesta</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- HERO + SELECTOR -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">PTC Mining &amp; Products · Gran Minería</span>
+      <h1>La solución correcta para su <em>correa, flota o planta.</em></h1>
+      <p class="lead">Indíquenos dónde está el problema y le mostramos qué línea PTC lo resuelve, con su especificación técnica. Más de 20 años abasteciendo faenas en Chile y Perú.</p>
+      <div class="hero-meta">
+        <div><b>20+</b><span>años en minería</span></div>
+        <div><b>24–120"</b><span>anchos de cinta</span></div>
+        <div><b>60'</b><span>reparación Mineservice</span></div>
+      </div>
+    </div>
+
+    <div class="sel" id="selector" aria-live="polite">
+      <div class="sel-h"><b>Selector de soluciones PTC</b><div class="sel-steps"><i class="on"></i><i class="on" id="st2"></i><i id="st3"></i></div></div>
+      <div class="sel-b">
+        <p class="sel-q">1. ¿Dónde está el problema?</p>
+        <div class="zones" id="zones" role="group" aria-label="Zona del problema">
+          <button class="zone" data-z="correa" aria-pressed="true"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="20" r="5"/><circle cx="27" cy="20" r="5"/><path d="M7 15h20M7 25h20"/></svg><b>Correa transportadora</b></button>
+          <button class="zone" data-z="flota" aria-pressed="false"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20l5-7h16l4 5v4H3z"/><path d="M24 13V9h5l2 4"/><circle cx="9" cy="25" r="4"/><circle cx="25" cy="25" r="4"/></svg><b>Flota CAEX y carguío</b></button>
+          <button class="zone" data-z="planta" aria-pressed="false"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="17" cy="17" r="11"/><circle cx="17" cy="17" r="5"/><path d="M17 3v4M17 27v4M3 17h4M27 17h4"/></svg><b>Planta y molienda</b></button>
+        </div>
+        <p class="sel-q">2. ¿Qué está observando?</p>
+        <div class="syms" id="syms" role="group" aria-label="Síntoma"></div>
+        <div class="res" id="res"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÍNDICE DE LÍNEAS -->
+<section id="lineas">
+  <div class="wrap">
+    <div class="sh"><div><span class="kicker">Índice de líneas</span><h2>Catálogo técnico</h2></div><p>Cinco líneas de suministro y servicio. Abra cada fila para ver su ficha técnica resumida.</p></div>
+    <div class="idx" id="idx">
+      <div class="idx-head"><span>Imagen</span><span>Código</span><span>Línea</span><span>Aplicación</span><span>Norma / alcance</span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA -->
+<section class="calc" id="calculadora">
+  <div class="wrap">
+    <div class="sh"><div><span class="kicker">Herramienta</span><h2>¿Cuánto mineral deja de moverse?</h2></div><p>Estime las toneladas que no se transportan en una detención de correa y cuántas recupera reparando con Mineservice en 60 minutos.</p></div>
+    <div class="calc-box">
+      <div class="calc-in">
+        <div class="fld"><label for="c-tph">Capacidad de la correa <output id="o-tph"></output></label><input type="range" id="c-tph" min="500" max="12000" step="250" value="4000"><small><span>500 t/h</span><span>12.000 t/h</span></small></div>
+        <div class="fld"><label for="c-h">Reparación convencional <output id="o-h"></output></label><input type="range" id="c-h" min="2" max="12" step="0.5" value="6"><small><span>2 h</span><span>12 h</span></small></div>
+        <div class="fld"><label for="c-n">Eventos de reparación al año <output id="o-n"></output></label><input type="range" id="c-n" min="1" max="24" step="1" value="6"><small><span>1</span><span>24</span></small></div>
+      </div>
+      <div class="calc-out">
+        <div class="big-out"><span>Toneladas recuperadas al año</span><b><span id="r-year">0</span><small>t</small></b></div>
+        <div class="mini"><div><span>Recuperadas por evento</span><b id="r-ev">0</b></div><div><span>Horas de operación ganadas al año</span><b id="r-hr">0</b></div></div>
+        <div class="bars">
+          <div class="bar"><span>Convencional</span><i><em id="b-conv" style="width:100%"></em></i><b id="l-conv"></b></div>
+          <div class="bar ms"><span>Mineservice</span><i><em id="b-ms"></em></i><b>1 h</b></div>
+        </div>
+        <p class="calc-note">Cálculo referencial: capacidad × horas de detención evitadas. No considera tiempos de detención y partida de la correa.</p>
+        <a href="#contacto" class="btn btn-or" data-line="Caucho líquido Mineservice">Evaluar Mineservice en mi faena</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MINESERVICE -->
+<section id="mineservice">
+  <div class="wrap ms-grid">
+    <div class="ms-card">
+      <span class="kicker">Producto exclusivo PTC · Ficha</span>
+      <h3>Caucho líquido Mineservice</h3>
+      <p style="color:var(--mute)">Sistema elastomérico bicomponente de alto desempeño, libre de tolueno, ideal para reparación de cubiertas. Elevada adherencia y resistencia mecánica.</p>
+      <div class="ms-kpis"><div><b>60'</b><span>Puesta en servicio</span></div><div><b>2K</b><span>Bicomponente</span></div><div><b>0%</b><span>Tolueno</span></div></div>
+      <table class="spec">
+        <tr><th>Tipo</th><td>Sistema elastomérico bicomponente</td></tr>
+        <tr><th>Uso</th><td>Reparación de cubiertas de correas transportadoras</td></tr>
+        <tr><th>Desempeño</th><td>Elevada adherencia y resistencia mecánica</td></tr>
+        <tr><th>Composición</th><td>Libre de tolueno</td></tr>
+      </table>
+    </div>
+    <div>
+      <span class="kicker">Por qué importa</span>
+      <h2 style="font-size:clamp(44px,5.4vw,76px);font-weight:900;margin:12px 0 18px">De la falla a la operación en una hora.</h2>
+      <div class="steps">
+        <div class="step"><b>1</b><div><h3>Detección</h3><p>Daño en la cubierta de la correa identificado en inspección o en operación.</p></div></div>
+        <div class="step"><b>2</b><div><h3>Aplicación</h3><p>Preparación de la zona y aplicación del sistema bicomponente Mineservice.</p></div></div>
+        <div class="step"><b>3</b><div><h3>Puesta en servicio</h3><p>La correa vuelve a operar en 60 minutos.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div><span class="kicker">Servicio en terreno</span><h2>Equipos certificados en su planta</h2></div><p>Intervenimos con personal de alta experiencia, tecnología de punta y productos exclusivos PTC.</p></div>
+    <div class="svc">
+      <article><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="8" width="20" height="3"/><rect x="2" y="13" width="20" height="3"/><path d="M12 4v4M12 16v4"/></svg></span><h3>Empalmes vulcanizados</h3><p>Tiempos, presiones y temperaturas correctas para cualquier tipo de empalme, ancho o tensión.</p></article>
+      <article><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="12" r="5"/><circle cx="8" cy="12" r="1.5"/><path d="M8 7h13M8 17h13"/></svg></span><h3>Cambio de cintas</h3><p>Con enrolladores de cintas diseñados exclusivamente por PTC.</p></article>
+      <article><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg></span><h3>Recubrimiento de molinos</h3><p>Ejecutado por equipos técnicos certificados.</p></article>
+      <article><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="10" width="6" height="5" rx="2.5"/><rect x="9" y="10" width="6" height="5" rx="2.5"/><rect x="16" y="10" width="6" height="5" rx="2.5"/></svg></span><h3>Reemplazo de polines</h3><p>Polines de carga, retorno e impacto para proteger sus correas.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- FICHAS -->
+<section id="fichas" style="padding-top:0">
+  <div class="wrap">
+    <div class="sh"><div><span class="kicker">Documentación</span><h2>Fichas técnicas</h2></div><p>Solicite la ficha de cada línea y un especialista se la envía con la especificación para su aplicación.</p></div>
+    <div class="dl" id="dl"></div>
+  </div>
+</section>
+
+<!-- PRESENCIA + CONTACTO -->
+<section class="end" id="contacto">
+  <div class="wrap end-grid">
+    <div>
+      <span class="kicker">Presencia regional</span>
+      <h2 style="font-size:clamp(44px,5.4vw,76px);font-weight:900;margin-top:12px">Stock cerca de su faena</h2>
+      <div class="sites">
+        <div class="site"><b class="cc">CL</b><div><h3>Antofagasta</h3><p>Barrio Industrial, Sector La Negra</p></div></div>
+        <div class="site"><b class="cc">PE</b><div><h3>Arequipa</h3><p>Parque Industrial Río Seco</p></div></div>
+        <div class="site"><b class="cc">BO</b><div><h3>Bolivia · Panamá</h3><p>Cobertura comercial y logística</p></div></div>
+      </div>
+      <div class="contact"><span>+56 9 6846 2700</span><span>contacto@ptcmining.cl</span></div>
+    </div>
+    <form id="form" novalidate>
+      <div class="full"><h3>Solicitud de propuesta técnica</h3><p class="sub">Se abrirá WhatsApp con su requerimiento ya redactado.</p></div>
+      <div><label for="f-n">Nombre</label><input id="f-n" autocomplete="name"></div>
+      <div><label for="f-e">Empresa / faena</label><input id="f-e" autocomplete="organization"></div>
+      <div class="full"><label for="f-l">Línea</label><select id="f-l"></select></div>
+      <div class="full"><label for="f-m">Requerimiento</label><textarea id="f-m" placeholder="Medidas, cantidades, plazos, ubicación de faena…"></textarea></div>
+      <div class="full"><button class="btn btn-dk" type="submit" style="width:100%">Enviar por WhatsApp</button></div>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap"><a href="#top" class="logo"><img src="assets/logo-blanco.svg" alt="PTC · Patagon Technologies Corp"></a><span>© 2026 PTC Mining (Patagon Technology Corp). Todos los derechos reservados.</span></div></footer>
+
+<a class="wa" href="https://wa.me/56968462700" target="_blank" rel="noopener" aria-label="WhatsApp ventas"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg></a>
+
+<script>
+const IMG='https://www.ptctech.cl/images/';
+const LINES={
+ cintas:{code:'PTC-L01',name:'Cintas transportadoras',img:'cintas.jpg',ap:'Chancado, overland, planta',nr:'DIN W · EP / ST',text:'Cintas de alta tensión y resistencia a la abrasión para transporte de mineral pesado.',spec:[['Cubierta','Resistencia extrema a la abrasión, norma DIN W'],['Carcasa','Tela EP o cables de acero (Steelcord)'],['Anchos','Desde 24" hasta 120"'],['Servicio','Empalme vulcanizado en terreno']]},
+ neumaticos:{code:'PTC-L02',name:'Neumáticos OTR',img:'neumaticos.jpg',ap:'CAEX y maquinaria pesada',nr:'OTR · TKPH',text:'Neumáticos Off-The-Road de ultra alta capacidad para camiones de extracción.',spec:[['Aplicación','Camiones de extracción (CAEX) y maquinaria pesada'],['Banda','Resistente a cortes y abrasión en roca dura'],['Compuesto','Control de temperatura (TKPH) en trayectos largos'],['Asesoría','Selección por perfil de ruta y toneladas']]},
+ polines:{code:'PTC-L03',name:'Polines y rodillos',img:'polines.jpg',ap:'Estaciones de carga, retorno e impacto',nr:'CEMA / DIN',text:'Polines para ambientes hostiles, que reducen vibraciones y paradas no programadas.',spec:[['Tipos','Carga, impacto y retorno'],['Carcasa','Alta concentricidad (bajo TIR)'],['Sellado','Laberinto múltiple contra polvo y humedad'],['Norma','CEMA / DIN']]},
+ repuestos:{code:'PTC-L04',name:'Repuestos CAEX',img:'camion-minero.jpg',ap:'Camiones mineros y carguío',nr:'OEM y alternativos',text:'Componentes críticos con red logística ágil para evitar paradas no planificadas.',spec:[['Motor','Componentes de motor y tren de potencia'],['Hidráulica','Cilindros de suspensión y sistemas de levante'],['Frenado','Frenos húmedos, discos y fricción'],['Desgaste','Elementos GET y protecciones de tolva']]},
+ mantenimiento:{code:'PTC-L05',name:'Mantenimiento en planta',img:'mantenimiento.jpg',ap:'Correas, molinos y polines',nr:'Servicio en terreno',text:'Intervenciones con equipos técnicos certificados y productos exclusivos PTC.',spec:[['Empalmes','Vulcanizados con control de tiempo, presión y temperatura'],['Correas','Cambio con enrolladores diseñados por PTC'],['Molinos','Recubrimiento de molinos'],['Reparación','Caucho líquido Mineservice, 60 minutos']]},
+ mineservice:{code:'PTC-MS',name:'Caucho líquido Mineservice',ap:'Reparación de cubiertas',nr:'Bicomponente · sin tolueno',text:'Reparación de cubiertas con puesta en servicio en 60 minutos.',spec:[]}
+};
+const SEL={
+ correa:[
+  {s:'Desgaste por abrasión',l:'cintas',why:'Una cubierta de resistencia extrema a la abrasión (DIN W) prolonga la vida de la cinta en mineral pesado.',pts:['Cubierta DIN W','Carcasa EP o Steelcord según tensión','Anchos de 24" a 120"']},
+  {s:'Daño o corte en la cubierta',l:'mineservice',why:'Repare la cubierta en terreno y devuelva la correa a operación en una hora.',pts:['Bicomponente, libre de tolueno','Elevada adherencia y resistencia mecánica','Puesta en servicio en 60 minutos']},
+  {s:'Empalme que falla',l:'mantenimiento',why:'Un empalme vulcanizado con tiempos, presiones y temperaturas controladas evita fallas repetidas.',pts:['Inspección de equipos de vulcanizado','Cualquier tipo de empalme, ancho o tensión','Personal de alta experiencia']},
+  {s:'Vibración o polines trabados',l:'polines',why:'Polines de bajo TIR y sellado de laberinto múltiple reducen vibraciones y protegen la correa.',pts:['Carga, impacto y retorno','Alta concentricidad (bajo TIR)','Normas CEMA / DIN']},
+  {s:'Fin de vida útil',l:'cintas',why:'Suministro de la cinta nueva y su cambio en terreno, con enrolladores diseñados por PTC.',pts:['Cinta especificada para su aplicación','Cambio de cinta en parada programada','Empalme vulcanizado incluido']}
+ ],
+ flota:[
+  {s:'Cortes en neumáticos',l:'neumaticos',why:'Bandas de rodadura diseñadas para resistir cortes y abrasión en roca dura.',pts:['Diseños OTR de alta gama','Banda anti-corte','Selección por perfil de ruta']},
+  {s:'Temperatura en trayectos largos',l:'neumaticos',why:'Compuestos especiales para control de temperatura (TKPH) en rutas largas.',pts:['Compuestos de control TKPH','Alta capacidad de carga','Asesoría por toneladas transportadas']},
+  {s:'Falla de frenos o suspensión',l:'repuestos',why:'Repuestos críticos OEM y alternativos con red logística ágil.',pts:['Frenos húmedos y fricción','Cilindros de suspensión','Sistemas hidráulicos de levante']},
+  {s:'Desgaste en tolva o GET',l:'repuestos',why:'Elementos de desgaste y protecciones de tolva para equipos de carguío y transporte.',pts:['Elementos GET','Protecciones de tolva','Alta durabilidad']}
+ ],
+ planta:[
+  {s:'Recubrimiento de molino',l:'mantenimiento',why:'Recubrimiento de molinos ejecutado por equipos técnicos certificados.',pts:['Equipos certificados','Intervención programada','Productos de alto desempeño']},
+  {s:'Parada de planta programada',l:'mantenimiento',why:'Llegamos a faena con stock y equipos para cambios de cinta, empalmes y polines.',pts:['Stock desde Antofagasta y Arequipa','Cambio de cintas con enrolladores PTC','Reemplazo de polines']},
+  {s:'Reparación urgente de correa',l:'mineservice',why:'Mineservice permite volver a operar en 60 minutos.',pts:['Aplicación en terreno','Libre de tolueno','Puesta en servicio en 60 minutos']}
+ ]
+};
+let zone='correa',symIdx=0;
+const zEl=document.getElementById('zones'),sEl=document.getElementById('syms'),rEl=document.getElementById('res');
+function renderSyms(){
+  sEl.innerHTML=SEL[zone].map((o,i)=>`<button class="sym" data-i="${i}" aria-pressed="${i===symIdx}">${o.s}</button>`).join('');
+  renderRes();
+}
+function renderRes(){
+  const o=SEL[zone][symIdx],L=LINES[o.l];
+  document.getElementById('st3').classList.add('on');
+  rEl.innerHTML=`<span class="rc">Recomendación · ${L.code}</span><h3>${L.name}</h3><p>${o.why}</p><ul>${o.pts.map(p=>`<li>${p}</li>`).join('')}</ul><div class="row"><a href="#contacto" class="btn btn-or" data-pick="${L.name}">Cotizar esta solución</a>${o.l!=='mineservice'?`<a href="#lineas" class="btn btn-ln" data-open="${o.l}">Ver ficha</a>`:`<a href="#mineservice" class="btn btn-ln">Ver ficha</a>`}</div>`;
+}
+zEl.addEventListener('click',e=>{const b=e.target.closest('.zone');if(!b)return;zone=b.dataset.z;symIdx=0;[...zEl.children].forEach(x=>x.setAttribute('aria-pressed',x===b));renderSyms()});
+sEl.addEventListener('click',e=>{const b=e.target.closest('.sym');if(!b)return;symIdx=+b.dataset.i;[...sEl.children].forEach(x=>x.setAttribute('aria-pressed',x===b));renderRes()});
+renderSyms();
+
+// índice
+const idx=document.getElementById('idx');
+Object.entries(LINES).filter(([k])=>k!=='mineservice').forEach(([k,L])=>{
+  const b=document.createElement('button');b.className='idx-row';b.id='row-'+k;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','sh-'+k);
+  b.innerHTML=`<span class="thumb"><img src="${IMG+L.img}" alt="" loading="lazy" onerror="this.remove()"></span><span class="code cd">${L.code}</span><span class="nm">${L.name}</span><span class="ap">${L.ap}</span><span class="nr">${L.nr}</span><span class="pl" aria-hidden="true">+</span>`;
+  const s=document.createElement('div');s.className='sheet';s.id='sh-'+k;
+  s.innerHTML=`<div><p>${L.text}</p><div class="row"><a href="#contacto" class="btn btn-or" data-pick="${L.name}">Cotizar</a><button class="btn btn-ln" type="button" data-sheet="${L.name}">Solicitar ficha</button></div></div><table class="spec">${L.spec.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join('')}</table>`;
+  b.onclick=()=>toggle(k);
+  idx.appendChild(b);idx.appendChild(s);
+});
+function toggle(k,force){const b=document.getElementById('row-'+k),s=document.getElementById('sh-'+k);const o=force??!s.classList.contains('open');s.classList.toggle('open',o);b.setAttribute('aria-expanded',o)}
+toggle('cintas',true);
+
+// fichas
+const dl=document.getElementById('dl');
+Object.values(LINES).forEach(L=>{
+  const b=document.createElement('button');b.type='button';b.dataset.sheet=L.name;
+  b.innerHTML=`<span class="doc">PDF</span><span><b>${L.name}</b><span>${L.code} · ${L.nr}</span></span><i>Solicitar →</i>`;dl.appendChild(b);
+});
+
+// formulario
+const fl=document.getElementById('f-l');
+fl.innerHTML=Object.values(LINES).map(L=>`<option>${L.name}</option>`).join('');
+function wa(msg){const a=document.createElement('a');a.href='https://wa.me/56968462700?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
+document.addEventListener('click',e=>{
+  const p=e.target.closest('[data-pick]');if(p)fl.value=p.dataset.pick;
+  const o=e.target.closest('[data-open]');if(o)toggle(o.dataset.open,true);
+  const sh=e.target.closest('[data-sheet]');if(sh)wa(`Hola PTC Mining, quisiera recibir la ficha técnica de: ${sh.dataset.sheet}.`);
+  const l=e.target.closest('[data-line]');if(l)fl.value=l.dataset.line;
+});
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+  wa(`Hola PTC Mining, solicito una propuesta técnica.\nNombre: ${v('f-n')}\nEmpresa/faena: ${v('f-e')}\nLínea: ${v('f-l')}\nRequerimiento: ${v('f-m')}`)});
+
+// calculadora
+const nf=new Intl.NumberFormat('es-CL');
+const tph=document.getElementById('c-tph'),hh=document.getElementById('c-h'),nn=document.getElementById('c-n');
+function calc(){
+  const t=+tph.value,h=+hh.value,n=+nn.value,saved=Math.max(h-1,0);
+  document.getElementById('o-tph').textContent=nf.format(t)+' t/h';
+  document.getElementById('o-h').textContent=String(h).replace('.',',')+' h';
+  document.getElementById('o-n').textContent=n;
+  document.getElementById('r-ev').textContent=nf.format(Math.round(t*saved));
+  document.getElementById('r-year').textContent=nf.format(Math.round(t*saved*n));
+  document.getElementById('r-hr').textContent=nf.format(Math.round(saved*n*10)/10);
+  document.getElementById('l-conv').textContent=String(h).replace('.',',')+' h';
+  document.getElementById('b-ms').style.width=(100/h)+'%';
+}
+[tph,hh,nn].forEach(i=>i.addEventListener('input',calc));calc();
+
+// menú
+const nav=document.getElementById('nav'),bg=document.getElementById('burger');
+bg.onclick=()=>{const o=nav.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+nav.querySelectorAll('a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');bg.setAttribute('aria-expanded',false)});
+</script>
+<a class="dla-back" href="index.html" aria-label="Volver a las propuestas">← Propuestas · <b>3 de 3</b></a>
+<style>.dla-back{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;font:600 13px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;background:rgba(17,26,34,.88);backdrop-filter:blur(8px);padding:11px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none}.dla-back b{color:#ff6a3a}.dla-back:hover{background:#111a22}@media (max-width:860px){.dla-back{bottom:calc(20px + env(safe-area-inset-bottom,0px))}}</style>
+</body>
+</html>

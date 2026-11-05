@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTC Mining · Ingeniería de continuidad</title>
+<meta name="description" content="PTC Mining & Products: cintas transportadoras, neumáticos OTR, polines, repuestos CAEX, caucho líquido Mineservice y mantenimiento en planta. Chile, Perú, Bolivia y Panamá.">
+<link rel="icon" type="image/svg+xml" href="assets/isotipo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c0e;
+  --bg-2:#0f1215;
+  --bg-3:#161a1f;
+  --line:#242a31;
+  --line-2:#323a43;
+  --mute:#7d8892;
+  --text:#c8cfd5;
+  --white:#f4f6f8;
+  --cu:#f2460c;          /* cobre fundido */
+  --cu-2:#ff6a3a;
+  --cu-dim:rgba(242,70,12,.12);
+  --ok:#3ddc84;
+  --sans:'Archivo',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --max:1320px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.d{font-family:var(--sans);font-stretch:68%;font-weight:800;text-transform:uppercase;color:var(--white);line-height:.9;letter-spacing:-.005em}
+.tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cu);display:inline-flex;align-items:center;gap:10px}
+.tag b{display:inline-block;width:7px;height:7px;background:var(--cu)}
+.mono{font-family:var(--mono)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;font-stretch:80%;font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;padding:17px 26px;border:1px solid transparent;transition:.25s;position:relative}
+.btn svg{width:16px;height:16px;transition:transform .25s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-cu{background:var(--cu);color:#0a0c0e}
+.btn-cu:hover{background:var(--cu-2)}
+.btn-line{border-color:var(--line-2);color:var(--white)}
+.btn-line:hover{border-color:var(--white)}
+/* esquinas tipo plano */
+.corners{position:relative}
+.corners::before,.corners::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--cu);border-style:solid;pointer-events:none}
+.corners::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.corners::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+
+/* ================= HEADER ================= */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:80;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.hdr.scrolled{background:rgba(10,12,14,.9);backdrop-filter:blur(12px);border-color:var(--line)}
+.hdr .wrap{display:flex;align-items:center;height:76px;gap:40px}
+.logo{display:flex;align-items:center;gap:12px;margin-right:auto}
+.lg{height:44px;width:auto;display:block}
+footer .lg{height:56px}
+.logo span{font-stretch:75%;font-weight:900;font-size:22px;color:var(--white);letter-spacing:.02em;line-height:1}
+.logo small{display:block;font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.24em;color:var(--mute);margin-top:4px}
+.nav{display:flex;gap:30px}
+.nav a{font-size:14px;font-weight:600;font-stretch:85%;letter-spacing:.08em;text-transform:uppercase;color:var(--text);transition:color .2s}
+.nav a:hover{color:var(--cu)}
+.hdr .btn{padding:12px 20px;font-size:13px}
+.burger{display:none;background:none;border:0;color:var(--white)}
+.burger svg{width:28px;height:28px}
+
+/* ================= HERO ================= */
+.hero{position:relative;height:100vh;min-height:720px;overflow:hidden;border-bottom:1px solid var(--line)}
+#terrain{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 60%,transparent 0%,rgba(10,12,14,.4) 50%,var(--bg) 100%),linear-gradient(90deg,var(--bg) 0%,rgba(10,12,14,.75) 38%,transparent 70%);pointer-events:none}
+.hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:76px}
+.hero h1{font-size:clamp(58px,9.6vw,150px);margin:26px 0 30px;max-width:1000px}
+.hero h1 .o{color:transparent;-webkit-text-stroke:1.5px var(--white)}
+.hero h1 .c{color:var(--cu)}
+.hero p{font-size:19px;max-width:540px;color:var(--text);margin-bottom:40px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hud{position:absolute;right:28px;bottom:120px;z-index:3;width:300px;background:rgba(15,18,21,.82);backdrop-filter:blur(8px);border:1px solid var(--line-2);font-family:var(--mono);font-size:12px}
+.hud-h{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line-2);color:var(--mute);letter-spacing:.12em}
+.hud-h i{font-style:normal;color:var(--ok)}
+.hud-r{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line)}
+.hud-r:last-child{border:0}
+.hud-r span{color:var(--text)}
+.hud-r em{font-style:normal;color:var(--ok);display:flex;align-items:center;gap:7px}
+.hud-r em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+.coords{position:absolute;left:28px;bottom:36px;z-index:3;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.12em;display:flex;gap:30px}
+.scroll{position:absolute;right:28px;bottom:36px;z-index:3;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.16em;display:flex;align-items:center;gap:12px}
+.scroll i{width:1px;height:40px;background:linear-gradient(var(--cu),transparent);animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ================= KPI BAR ================= */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.kpi{padding:38px 28px;border-right:1px solid var(--line);position:relative}
+.kpi:last-child{border-right:0}
+.kpi .n{font-stretch:70%;font-weight:800;font-size:64px;color:var(--white);line-height:1;display:flex;align-items:flex-start;gap:4px}
+.kpi .n small{font-size:22px;color:var(--cu);margin-top:6px}
+.kpi p{font-size:13.5px;color:var(--mute);margin-top:10px;max-width:180px}
+.kpi .idx{position:absolute;top:16px;right:18px;font-family:var(--mono);font-size:10px;color:var(--line-2)}
+
+/* ================= SECTIONS ================= */
+section{padding:130px 0;position:relative}
+.sh{display:grid;grid-template-columns:auto 1fr;gap:60px;align-items:end;margin-bottom:70px}
+.sh h2{font-size:clamp(46px,6vw,92px);margin-top:20px}
+.sh p{font-size:18px;color:var(--mute);max-width:520px;justify-self:end}
+.grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:80px 80px;background-position:-1px -1px}
+
+/* ================= FLUJO DE LA MINA ================= */
+.flow{background:var(--bg-2);border-bottom:1px solid var(--line)}
+.flow-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:0;border:1px solid var(--line);background:var(--bg)}
+.flow-diag{padding:40px;border-right:1px solid var(--line);position:relative}
+.flow-diag svg{width:100%;height:auto;display:block}
+.stage{cursor:pointer}
+.stage rect{fill:var(--bg-3);stroke:var(--line-2);transition:.25s}
+.stage text{fill:var(--text);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;transition:.25s}
+.stage .st-n{fill:var(--mute);font-size:9px}
+.stage:hover rect{stroke:var(--cu)}
+.stage.on rect{fill:var(--cu-dim);stroke:var(--cu)}
+.stage.on text{fill:var(--white)}
+.stage.on .st-n{fill:var(--cu)}
+.flow-line{stroke:var(--line-2);stroke-width:1.5;fill:none;stroke-dasharray:4 6;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-20}}
+.flow-panel{padding:44px 40px;display:flex;flex-direction:column}
+.flow-panel h3{font-size:44px;margin:14px 0 14px}
+.flow-panel p{color:var(--mute);margin-bottom:26px}
+.flow-prods{display:grid;gap:10px;margin-bottom:30px}
+.flow-prods a{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border:1px solid var(--line);font-weight:600;font-stretch:85%;letter-spacing:.04em;text-transform:uppercase;font-size:15px;color:var(--white);transition:.2s}
+.flow-prods a:hover{border-color:var(--cu);background:var(--cu-dim)}
+.flow-prods a span{font-family:var(--mono);font-size:11px;color:var(--cu);font-weight:400}
+.flow-hint{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.1em}
+
+/* ================= LÍNEAS DE PRODUCTO ================= */
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--mute);padding:20px 26px;font-stretch:80%;font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;display:flex;gap:12px;align-items:center;margin-bottom:-1px;transition:.2s}
+.tab i{font-style:normal;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--line-2)}
+.tab:hover{color:var(--white)}
+.tab.on{color:var(--white);border-color:var(--cu)}
+.tab.on i{color:var(--cu)}
+.panel{display:none;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-top:0;min-height:560px}
+.panel.on{display:grid;animation:fade .5s ease}
+@keyframes fade{from{opacity:0}}
+.p-draw{border-right:1px solid var(--line);position:relative;display:grid;place-items:center;padding:50px;overflow:hidden}
+.p-draw svg{width:100%;max-width:440px;height:auto}
+.p-draw .lbl{position:absolute;top:22px;left:24px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.12em}
+.p-draw .lbl2{position:absolute;bottom:22px;right:24px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.12em}
+.bp{stroke:var(--cu);fill:none;stroke-width:1.4}
+.bp2{stroke:var(--line-2);fill:none;stroke-width:1}
+.bpt{fill:var(--mute);font-family:'JetBrains Mono';font-size:9px;letter-spacing:.08em}
+.draw-anim .bp{stroke-dasharray:1400;stroke-dashoffset:1400;animation:drawin 2.4s ease forwards}
+@keyframes drawin{to{stroke-dashoffset:0}}
+.p-info{padding:54px 50px;display:flex;flex-direction:column}
+.p-info h3{font-size:clamp(40px,4vw,58px);margin:16px 0 18px}
+.p-info>p{color:var(--mute);margin-bottom:30px;font-size:16.5px}
+.spec{width:100%;border-collapse:collapse;margin-bottom:34px;font-size:15px}
+.spec td{padding:14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.spec td:first-child{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--mute);text-transform:uppercase;width:38%;padding-top:17px}
+.spec td:last-child{color:var(--white)}
+.p-info .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
+
+/* ================= CONFIGURADOR ================= */
+.cfg{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cfg-box{display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--line);background:var(--bg)}
+.cfg-l{padding:46px;border-right:1px solid var(--line)}
+.cfg-g{margin-bottom:34px}
+.cfg-g label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;margin-bottom:14px}
+.cfg-g label output{color:var(--cu);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:none;border:1px solid var(--line-2);color:var(--text);padding:12px 18px;font-stretch:85%;font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;transition:.2s}
+.chip:hover{border-color:var(--white);color:var(--white)}
+.chip.on{background:var(--cu);border-color:var(--cu);color:#0a0c0e}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line-2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:var(--cu);border:4px solid var(--bg);outline:1px solid var(--cu);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--cu);border:4px solid var(--bg);border-radius:0;cursor:pointer}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--mute);margin-top:10px}
+.cfg-r{padding:46px;display:flex;flex-direction:column}
+.belt-prev{height:150px;border:1px solid var(--line);margin-bottom:28px;display:grid;place-items:center;position:relative;background:repeating-linear-gradient(90deg,transparent 0 39px,var(--line) 39px 40px)}
+.belt-prev svg{width:90%;height:auto}
+.sum{font-family:var(--mono);font-size:13px;margin-bottom:30px}
+.sum div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line-2)}
+.sum span{color:var(--mute)}
+.sum b{color:var(--white);font-weight:500;text-align:right}
+.cfg-r .btn{margin-top:auto}
+
+/* ================= MINESERVICE ================= */
+.ms{overflow:hidden}
+.ms-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
+.ms h2{font-size:clamp(52px,7vw,112px);margin:20px 0 28px}
+.ms h2 .c{color:var(--cu)}
+.ms .lead{font-size:18px;color:var(--mute);margin-bottom:40px;max-width:520px}
+.ms-feats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-2);margin-bottom:40px}
+.ms-feats div{padding:24px 18px 0 0}
+.ms-feats b{display:block;font-stretch:70%;font-weight:800;font-size:46px;color:var(--white);line-height:1}
+.ms-feats span{font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.1em;text-transform:uppercase}
+.gauge{position:relative;width:100%;max-width:520px;aspect-ratio:1;margin-left:auto}
+.gauge svg{width:100%;height:100%;overflow:visible}
+.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.gauge .ctr b{font-stretch:62%;font-weight:900;font-size:clamp(100px,13vw,180px);line-height:.8;color:var(--white)}
+.gauge .ctr span{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--cu);margin-top:16px}
+#arc{transition:stroke-dashoffset 2.6s cubic-bezier(.2,.8,.2,1)}
+
+/* ================= SERVICIOS ================= */
+.svcs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+.svc{padding:40px 30px 34px;border-right:1px solid var(--line);position:relative;transition:background .3s;min-height:380px;display:flex;flex-direction:column}
+.svc:last-child{border-right:0}
+.svc:hover{background:var(--bg-2)}
+.svc .ic{width:56px;height:56px;margin-bottom:34px}
+.svc .ic svg{width:100%;height:100%}
+.svc .no{position:absolute;top:22px;right:24px;font-family:var(--mono);font-size:11px;color:var(--line-2)}
+.svc h3{font-size:30px;margin-bottom:14px}
+.svc p{color:var(--mute);font-size:15px}
+.svc ul{list-style:none;margin-top:auto;padding-top:24px;font-family:var(--mono);font-size:11.5px;color:var(--text);letter-spacing:.04em}
+.svc li{padding:7px 0;border-top:1px solid var(--line)}
+.svc li::before{content:"→ ";color:var(--cu)}
+
+/* ================= PROCESO ================= */
+.proc{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.step{padding:0 30px 0 0;position:relative}
+.step .bar{height:2px;background:var(--line-2);margin-bottom:30px;position:relative;overflow:hidden}
+.step .bar::after{content:"";position:absolute;inset:0;background:var(--cu);transform:scaleX(0);transform-origin:left;transition:transform 1s ease}
+.proc.in .step .bar::after{transform:scaleX(1)}
+.proc.in .step:nth-child(2) .bar::after{transition-delay:.4s}
+.proc.in .step:nth-child(3) .bar::after{transition-delay:.8s}
+.proc.in .step:nth-child(4) .bar::after{transition-delay:1.2s}
+.step .k{font-family:var(--mono);font-size:12px;color:var(--cu);letter-spacing:.14em}
+.step h3{font-size:34px;margin:12px 0 12px}
+.step p{color:var(--mute);font-size:15px}
+
+/* ================= PRESENCIA ================= */
+.pres-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+.pres-map{border-right:1px solid var(--line);padding:30px;display:grid;place-items:center;background:var(--bg-2)}
+.pres-map svg{width:100%;max-width:420px;height:auto}
+.pin-p{animation:pp 2.6s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pp{0%{transform:scale(1);opacity:.9}100%{transform:scale(4);opacity:0}}
+.pres-list{display:flex;flex-direction:column}
+.base{padding:34px 40px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:70px 1fr auto;gap:20px;align-items:center;transition:background .25s;cursor:default}
+.base:hover{background:var(--bg-2)}
+.base .cc{font-stretch:62%;font-weight:900;font-size:46px;color:var(--cu);line-height:1}
+.base h3{font-size:30px}
+.base p{color:var(--mute);font-size:14.5px}
+.base .st{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ok);border:1px solid rgba(61,220,132,.3);padding:6px 10px}
+.base .st.alt{color:var(--mute);border-color:var(--line-2)}
+.pres-adv{display:grid;grid-template-columns:1fr 1fr;margin-top:auto}
+.pres-adv div{padding:28px 40px;border-right:1px solid var(--line)}
+.pres-adv div:last-child{border:0}
+.pres-adv b{display:block;font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:20px;color:var(--white);margin-bottom:4px}
+.pres-adv span{color:var(--mute);font-size:14px}
+
+/* ================= CALIDAD ================= */
+.qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.qa{border:1px solid var(--line);padding:44px 36px;background:var(--bg-2)}
+.qa .big{font-stretch:62%;font-weight:900;font-size:86px;line-height:.85;color:var(--white);margin-bottom:26px}
+.qa .big small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.16em;color:var(--cu);margin-top:12px;font-stretch:100%}
+.qa h3{font-size:28px;margin-bottom:12px}
+.qa p{color:var(--mute);font-size:15px}
+.marquee{margin-top:70px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
+.mq{display:inline-flex;animation:mq 40s linear infinite}
+.mq span{font-stretch:62%;font-weight:900;font-size:clamp(44px,6vw,84px);text-transform:uppercase;padding:18px 34px;color:transparent;-webkit-text-stroke:1px var(--line-2);display:inline-flex;align-items:center;gap:34px}
+.mq span:nth-child(even){color:var(--bg-3);-webkit-text-stroke:0}
+.mq span::after{content:"✕";font-size:.35em;color:var(--cu);-webkit-text-stroke:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ================= FAQ ================= */
+.faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px}
+.faq-grid h2{font-size:clamp(46px,5vw,80px);margin-top:20px;position:sticky;top:120px}
+.acc{border-top:1px solid var(--line)}
+.q{border-bottom:1px solid var(--line)}
+.q button{width:100%;background:none;border:0;color:var(--white);text-align:left;padding:28px 0;display:flex;justify-content:space-between;gap:20px;align-items:center;font-stretch:85%;font-weight:700;font-size:20px;letter-spacing:.01em}
+.q button i{flex:none;width:30px;height:30px;border:1px solid var(--line-2);display:grid;place-items:center;font-style:normal;color:var(--cu);transition:.3s}
+.q.open button i{transform:rotate(45deg);border-color:var(--cu)}
+.q .a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.q .a p{color:var(--mute);padding-bottom:28px;max-width:640px}
+
+/* ================= CONTACTO ================= */
+.cta{background:var(--cu);color:#0a0c0e;padding:0;overflow:hidden}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.cta-l{padding:110px 70px 110px 0;position:relative}
+.cta-l .tag{color:#0a0c0e}
+.cta-l .tag b{background:#0a0c0e}
+.cta-l h2{color:#0a0c0e;font-size:clamp(56px,7vw,116px);margin:22px 0 28px}
+.cta-l p{font-size:19px;max-width:440px;margin-bottom:44px;color:rgba(10,12,14,.8)}
+.direct a{display:flex;align-items:center;gap:18px;padding:20px 0;border-top:1px solid rgba(10,12,14,.25);font-stretch:75%;font-weight:800;font-size:30px;text-transform:uppercase;transition:padding .25s}
+.direct a:last-child{border-bottom:1px solid rgba(10,12,14,.25)}
+.direct a:hover{padding-left:12px}
+.direct a small{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.14em;margin-left:auto;font-stretch:100%}
+.cta-r{background:var(--bg);color:var(--text);padding:80px 60px;margin:50px 0;position:relative}
+.cta-r h3{font-size:38px;margin-bottom:8px}
+.cta-r .sub{color:var(--mute);font-size:14px;margin-bottom:30px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{position:relative}
+.f.full{grid-column:1/-1}
+.f label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.f input,.f select,.f textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-2);color:var(--white);font-family:var(--sans);font-size:16px;padding:10px 0;outline:none;border-radius:0;transition:border-color .2s}
+.f select{-webkit-appearance:none;appearance:none}
+.f select option{background:var(--bg)}
+.f textarea{min-height:90px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--cu)}
+form .btn{grid-column:1/-1;margin-top:14px}
+
+/* ================= FOOTER ================= */
+footer{padding:90px 0 34px;font-size:14px;color:var(--mute);border-top:1px solid var(--line)}
+.fg{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:50px;margin-bottom:80px}
+footer h4{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--white);margin-bottom:20px}
+footer ul{list-style:none;display:grid;gap:10px}
+footer a:hover{color:var(--cu)}
+.fbig{font-stretch:62%;font-weight:900;text-transform:uppercase;font-size:clamp(80px,17vw,260px);line-height:.8;color:var(--bg-3);letter-spacing:-.01em;margin-bottom:30px;user-select:none}
+.fb{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:26px;font-size:13px}
+.fb div{display:flex;gap:24px}
+
+.wa{position:fixed;right:24px;bottom:24px;z-index:70;width:58px;height:58px;background:#25d366;display:grid;place-items:center;border-radius:50%;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .2s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:28px;height:28px;fill:#fff}
+
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ================= RESPONSIVE ================= */
+@media (max-height:1000px){.coords{display:none}}
+.scroll{right:100px}
+@media (max-width:1100px){
+  .hud{display:none}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .kpi:nth-child(3){border-right:0}
+  .kpi:nth-child(-n+3){border-bottom:1px solid var(--line)}
+  .flow-wrap,.panel.on,.cfg-box,.ms-grid,.pres-grid,.faq-grid,.cta-grid{grid-template-columns:minmax(0,1fr)}
+  .flow-diag,.p-draw,.cfg-l,.pres-map{border-right:0;border-bottom:1px solid var(--line)}
+  .svcs{grid-template-columns:1fr 1fr}
+  .svc:nth-child(2){border-right:0}
+  .svc:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .steps{grid-template-columns:1fr 1fr;gap:50px 0}
+  .gauge{margin:0 auto;max-width:420px}
+  .faq-grid h2{position:static}
+  .cta-l{padding:90px 0 40px}
+  .cta-r{margin:0 -28px 0;padding:60px 28px}
+  .fg{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .nav{position:fixed;top:76px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 28px 24px;display:none}
+  .nav.open{display:flex}
+  .nav a{padding:16px 0;border-bottom:1px solid var(--line)}
+  .hdr .btn{display:none}
+  .burger{display:block}
+  .hdr .wrap{gap:16px}
+  .sh{grid-template-columns:1fr;gap:20px}
+  .sh p{justify-self:start}
+  section{padding:90px 0}
+  .coords{display:none}
+}
+@media (max-width:620px){
+  .wrap{padding:0 18px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi{border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)}
+  .kpi:nth-child(even){border-right:0!important}
+  .kpi:last-child{grid-column:1/-1;border-right:0!important}
+  .kpi .n{font-size:48px}
+  .svcs,.steps,.qa-grid,.fg,form,.pres-adv{grid-template-columns:1fr}
+  .svc{border-right:0!important;border-bottom:1px solid var(--line)}
+  .flow-diag,.cfg-l,.cfg-r,.p-info,.flow-panel{padding:28px 20px}
+  .p-draw{padding:40px 20px}
+  .base{grid-template-columns:50px 1fr;padding:26px 20px}
+  .base .st{display:none}
+  .pres-adv div{border-right:0;border-bottom:1px solid var(--line);padding:22px 20px}
+  .ms-feats b{font-size:34px}
+  .direct a{font-size:22px}
+  .direct a small{display:none}
+  .cta-r{margin:0 -18px;padding:50px 18px}
+  .hero .ctas .btn{width:100%}
+  .hero h1{font-size:46px}
+  .p-info h3{font-size:36px;overflow-wrap:anywhere}
+  .p-draw svg{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="PTC Mining">
+      <img class="lg" src="assets/logo-blanco.svg" alt="PTC · Patagon Technologies Corp">
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#operacion">Operación</a>
+      <a href="#lineas">Líneas</a>
+      <a href="#configurador">Configurador</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#presencia">Presencia</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#contacto" class="btn btn-cu">Cotizar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+    <button class="burger" id="burger" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" style="padding:0">
+  <canvas id="terrain" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <span class="tag rv"><b></b>Gran Minería · Chile · Perú · Bolivia · Panamá</span>
+    <h1 class="d rv">Ingeniería de <span class="c">continuidad</span> <span class="o">para faenas</span> que no paran.</h1>
+    <p class="rv">Suministro crítico y servicios en planta para transporte de mineral, carguío y chancado. Más de 20 años manteniendo en movimiento a las principales mineras de la región andina.</p>
+    <div class="ctas rv">
+      <a href="#contacto" class="btn btn-cu">Solicitar propuesta técnica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="#configurador" class="btn btn-line">Configurar una cinta</a>
+    </div>
+  </div>
+  <div class="hud corners" aria-hidden="true">
+    <div class="hud-h"><span>RED OPERATIVA PTC</span><i>● EN LÍNEA</i></div>
+    <div class="hud-r"><span>Antofagasta · CL</span><em>Base</em></div>
+    <div class="hud-r"><span>Arequipa · PE</span><em>Base</em></div>
+    <div class="hud-r"><span>Bolivia</span><em>Cobertura</em></div>
+    <div class="hud-r"><span>Panamá</span><em>Cobertura</em></div>
+  </div>
+  <div class="coords" aria-hidden="true"><span>23°39′S 70°24′O</span><span>16°24′S 71°32′O</span></div>
+  <div class="scroll" aria-hidden="true">SCROLL <i></i></div>
+</section>
+
+<!-- ================= KPIs ================= -->
+<div class="kpis">
+  <div class="kpi rv"><span class="idx">K.01</span><div class="n"><span data-c="20">0</span><small>+</small></div><p>Años de experiencia comprobada en minería</p></div>
+  <div class="kpi rv"><span class="idx">K.02</span><div class="n"><span data-c="4">0</span></div><p>Países con presencia operativa o comercial</p></div>
+  <div class="kpi rv"><span class="idx">K.03</span><div class="n"><span data-c="60">0</span><small>MIN</small></div><p>Puesta en servicio con caucho Mineservice</p></div>
+  <div class="kpi rv"><span class="idx">K.04</span><div class="n"><span data-c="120">0</span><small>"</small></div><p>Ancho máximo de cinta transportadora</p></div>
+  <div class="kpi rv"><span class="idx">K.05</span><div class="n"><span data-c="10">0</span><small>+</small></div><p>Años de ingeniería europea en diseño de cintas</p></div>
+</div>
+
+<!-- ================= FLUJO DE LA OPERACIÓN ================= -->
+<section class="flow" id="operacion">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>01 — Mapa de la operación</span><h2 class="d">Presentes en<br>cada etapa.</h2></div>
+      <p>Del rajo a la planta: seleccione una etapa del proceso y vea qué soluciones PTC aseguran su continuidad.</p>
+    </div>
+    <div class="flow-wrap rv">
+      <div class="flow-diag grid-bg">
+        <svg viewBox="0 0 640 360" id="flowsvg">
+          <path class="flow-line" d="M110 90 H250"/>
+          <path class="flow-line" d="M350 90 H490"/>
+          <path class="flow-line" d="M540 120 V200 H540"/>
+          <path class="flow-line" d="M490 270 H350"/>
+          <path class="flow-line" d="M250 270 H110"/>
+          <g class="stage on" data-s="0"><rect x="20" y="50" width="180" height="80"/><text class="st-n" x="34" y="72">ETAPA 01</text><text x="34" y="104">EXTRACCIÓN</text><text x="34" y="120">Y CARGUÍO</text></g>
+          <g class="stage" data-s="1"><rect x="230" y="50" width="180" height="80"/><text class="st-n" x="244" y="72">ETAPA 02</text><text x="244" y="104">TRANSPORTE</text><text x="244" y="120">CAEX</text></g>
+          <g class="stage" data-s="2"><rect x="440" y="50" width="180" height="80"/><text class="st-n" x="454" y="72">ETAPA 03</text><text x="454" y="104">CHANCADO</text><text x="454" y="120">PRIMARIO</text></g>
+          <g class="stage" data-s="3"><rect x="440" y="230" width="180" height="80"/><text class="st-n" x="454" y="252">ETAPA 04</text><text x="454" y="284">CORREAS</text><text x="454" y="300">TRANSPORTADORAS</text></g>
+          <g class="stage" data-s="4"><rect x="230" y="230" width="180" height="80"/><text class="st-n" x="244" y="252">ETAPA 05</text><text x="244" y="284">MOLIENDA</text><text x="244" y="300">Y PLANTA</text></g>
+          <g class="stage" data-s="5"><rect x="20" y="230" width="180" height="80"/><text class="st-n" x="34" y="252">ETAPA 06</text><text x="34" y="284">PARADAS</text><text x="34" y="300">DE PLANTA</text></g>
+          <path d="M530 150 l10 10 10-10" stroke="#f2460c" fill="none" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="flow-panel">
+        <span class="tag" id="fl-n"><b></b>Etapa 01</span>
+        <h3 class="d" id="fl-t">Extracción y carguío</h3>
+        <p id="fl-p"></p>
+        <div class="flow-prods" id="fl-l"></div>
+        <span class="flow-hint">← SELECCIONE UNA ETAPA DEL DIAGRAMA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LÍNEAS DE PRODUCTO ================= -->
+<section id="lineas">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>02 — Líneas de suministro</span><h2 class="d">Hecho para<br>roca dura.</h2></div>
+      <p>Cinco líneas de producto y servicio especificadas para abrasión, impacto, temperatura y carga extrema.</p>
+    </div>
+    <div class="rv">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-t="0"><i>L.01</i>Cintas</button>
+        <button class="tab" data-t="1"><i>L.02</i>Neumáticos OTR</button>
+        <button class="tab" data-t="2"><i>L.03</i>Polines</button>
+        <button class="tab" data-t="3"><i>L.04</i>Repuestos CAEX</button>
+        <button class="tab" data-t="4"><i>L.05</i>Mantenimiento</button>
+      </div>
+
+      <!-- L01 CINTAS -->
+      <div class="panel on" data-p="0">
+        <div class="p-draw grid-bg"><span class="lbl">FIG. 01 — SECCIÓN DE CINTA</span><span class="lbl2">ESC. N/A</span>
+          <svg viewBox="0 0 400 300" class="draw-anim">
+            <path class="bp" d="M40 110 L360 110 L360 130 L40 130 Z"/>
+            <path class="bp" d="M40 130 L360 130 L360 175 L40 175 Z"/>
+            <path class="bp" d="M40 175 L360 175 L360 190 L40 190 Z"/>
+            <g class="bp2"><circle cx="70" cy="152" r="7"/><circle cx="105" cy="152" r="7"/><circle cx="140" cy="152" r="7"/><circle cx="175" cy="152" r="7"/><circle cx="210" cy="152" r="7"/><circle cx="245" cy="152" r="7"/><circle cx="280" cy="152" r="7"/><circle cx="315" cy="152" r="7"/></g>
+            <path class="bp2" d="M40 80 V100 M360 80 V100 M40 90 H360"/>
+            <text class="bpt" x="160" y="84">ANCHO 24" — 120"</text>
+            <path class="bp2" d="M360 120 H385 M360 152 H385 M360 182 H385"/>
+            <text class="bpt" x="290" y="225">CUBIERTA SUP. · DIN W</text>
+            <text class="bpt" x="290" y="240">CARCASA EP / ST</text>
+            <text class="bpt" x="290" y="255">CUBIERTA INF.</text>
+            <path class="bp" d="M40 250 Q120 205 200 250 T360 250" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="p-info">
+          <span class="tag"><b></b>L.01 · Transporte de mineral</span>
+          <h3 class="d">Cintas transportadoras</h3>
+          <p>Cintas de alta tensión y resistencia a la abrasión, diseñadas para el transporte de mineral pesado. Ingeniería europea y testeo destructivo DIN antes de cada despacho.</p>
+          <table class="spec">
+            <tr><td>Cubierta</td><td>Resistencia extrema a la abrasión, norma DIN W</td></tr>
+            <tr><td>Carcasa</td><td>Tela EP o cables de acero (Steelcord)</td></tr>
+            <tr><td>Anchos</td><td>Desde 24" hasta 120"</td></tr>
+            <tr><td>Servicio</td><td>Empalme vulcanizado en terreno</td></tr>
+          </table>
+          <div class="row"><a href="#configurador" class="btn btn-cu">Configurar cinta <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a><a href="#contacto" class="btn btn-line" data-line="Cintas transportadoras">Cotizar</a></div>
+        </div>
+      </div>
+
+      <!-- L02 NEUMÁTICOS -->
+      <div class="panel" data-p="1">
+        <div class="p-draw grid-bg"><span class="lbl">FIG. 02 — NEUMÁTICO OTR</span><span class="lbl2">VISTA LATERAL</span>
+          <svg viewBox="0 0 400 300">
+            <circle class="bp" cx="200" cy="150" r="125"/>
+            <circle class="bp" cx="200" cy="150" r="98"/>
+            <circle class="bp2" cx="200" cy="150" r="70"/>
+            <circle class="bp" cx="200" cy="150" r="40"/>
+            <circle class="bp2" cx="200" cy="150" r="10"/>
+            <g id="tread" class="bp2"></g>
+            <path class="bp2" d="M200 20 V5 M200 280 V295 M330 150 H385"/>
+            <text class="bpt" x="290" y="40">BANDA ANTI-CORTE</text>
+            <text class="bpt" x="290" y="54">ROCA DURA</text>
+            <text class="bpt" x="10" y="285">CONTROL TKPH</text>
+          </svg>
+        </div>
+        <div class="p-info">
+          <span class="tag"><b></b>L.02 · Flota de extracción</span>
+          <h3 class="d">Neumáticos mineros OTR</h3>
+          <p>Neumáticos Off-The-Road de ultra alta capacidad para camiones de extracción y maquinaria pesada, con asesoría de selección según la ruta real de su faena.</p>
+          <table class="spec">
+            <tr><td>Aplicación</td><td>Camiones de extracción (CAEX) y maquinaria pesada</td></tr>
+            <tr><td>Banda</td><td>Optimizada contra cortes y abrasión en roca dura</td></tr>
+            <tr><td>Compuesto</td><td>Control de temperatura (TKPH) en trayectos largos</td></tr>
+            <tr><td>Asesoría</td><td>Selección por perfil de ruta y toneladas transportadas</td></tr>
+          </table>
+          <div class="row"><a href="#contacto" class="btn btn-cu" data-line="Neumáticos OTR">Cotizar neumáticos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+        </div>
+      </div>
+
+      <!-- L03 POLINES -->
+      <div class="panel" data-p="2">
+        <div class="p-draw grid-bg"><span class="lbl">FIG. 03 — ESTACIÓN DE POLINES</span><span class="lbl2">ARTESA 35°</span>
+          <svg viewBox="0 0 400 300">
+            <rect class="bp" x="40" y="160" width="100" height="34" rx="17" transform="rotate(-35 140 177)"/>
+            <rect class="bp" x="150" y="170" width="100" height="34" rx="17"/>
+            <rect class="bp" x="260" y="160" width="100" height="34" rx="17" transform="rotate(35 260 177)"/>
+            <path class="bp2" d="M60 235 H340 M90 235 V205 M200 235 V204 M310 235 V205 M70 250 H330"/>
+            <path class="bp" d="M48 110 L150 168 H250 L352 110" stroke-dasharray="6 5"/>
+            <circle class="bp2" cx="200" cy="187" r="6"/>
+            <text class="bpt" x="150" y="275">CEMA / DIN · BAJO TIR</text>
+            <text class="bpt" x="250" y="100">CINTA</text>
+          </svg>
+        </div>
+        <div class="p-info">
+          <span class="tag"><b></b>L.03 · Correas</span>
+          <h3 class="d">Polines y rodillos</h3>
+          <p>Polines de carga, retorno e impacto diseñados para ambientes hostiles, que prolongan la vida útil de sus correas y reducen detenciones no programadas.</p>
+          <table class="spec">
+            <tr><td>Tipos</td><td>Carga, impacto y retorno</td></tr>
+            <tr><td>Carcasa</td><td>Alta concentricidad (bajo TIR) para evitar vibraciones</td></tr>
+            <tr><td>Sellado</td><td>Laberinto múltiple contra polvo y humedad</td></tr>
+            <tr><td>Norma</td><td>CEMA / DIN</td></tr>
+          </table>
+          <div class="row"><a href="#contacto" class="btn btn-cu" data-line="Polines y rodillos">Cotizar polines <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+        </div>
+      </div>
+
+      <!-- L04 REPUESTOS -->
+      <div class="panel" data-p="3">
+        <div class="p-draw grid-bg"><span class="lbl">FIG. 04 — CAMIÓN DE EXTRACCIÓN</span><span class="lbl2">COMPONENTES CRÍTICOS</span>
+          <svg viewBox="0 0 400 300">
+            <path class="bp" d="M60 160 L120 110 L300 110 L340 150 L340 175 L60 175 Z"/>
+            <path class="bp" d="M300 110 V80 H345 L360 110 V175 H340"/>
+            <path class="bp2" d="M318 88 H342 L350 106 H318 Z"/>
+            <circle class="bp" cx="115" cy="205" r="36"/><circle class="bp2" cx="115" cy="205" r="15"/>
+            <circle class="bp" cx="310" cy="205" r="36"/><circle class="bp2" cx="310" cy="205" r="15"/>
+            <path class="bp2" d="M150 175 V190 H275 V175"/>
+            <circle cx="115" cy="205" r="4" fill="#f2460c"/><circle cx="212" cy="183" r="4" fill="#f2460c"/><circle cx="330" cy="145" r="4" fill="#f2460c"/><circle cx="90" cy="150" r="4" fill="#f2460c"/>
+            <path class="bp2" d="M115 205 L60 265 M212 183 L212 265 M330 145 L380 60 M90 150 L40 90"/>
+            <text class="bpt" x="20" y="280">FRENOS HÚMEDOS</text>
+            <text class="bpt" x="180" y="280">SUSPENSIÓN</text>
+            <text class="bpt" x="315" y="52">MOTOR</text>
+            <text class="bpt" x="12" y="82">GET / TOLVA</text>
+          </svg>
+        </div>
+        <div class="p-info">
+          <span class="tag"><b></b>L.04 · Carguío y transporte</span>
+          <h3 class="d">Repuestos maquinaria pesada</h3>
+          <p>Repuestos OEM y alternativos de primera calidad para los principales modelos de CAEX y equipos de carguío, con una red logística ágil para partes críticas.</p>
+          <table class="spec">
+            <tr><td>Motor</td><td>Componentes de motor y tren de potencia</td></tr>
+            <tr><td>Hidráulica</td><td>Cilindros de suspensión y sistemas de levante</td></tr>
+            <tr><td>Frenado</td><td>Frenos húmedos, discos y componentes de fricción</td></tr>
+            <tr><td>Desgaste</td><td>Elementos GET y protecciones de tolva</td></tr>
+          </table>
+          <div class="row"><a href="#contacto" class="btn btn-cu" data-line="Repuestos CAEX">Cotizar repuestos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+        </div>
+      </div>
+
+      <!-- L05 MANTENIMIENTO -->
+      <div class="panel" data-p="4">
+        <div class="p-draw grid-bg"><span class="lbl">FIG. 05 — EMPALME VULCANIZADO</span><span class="lbl2">PRENSA</span>
+          <svg viewBox="0 0 400 300">
+            <path class="bp2" d="M20 150 H380"/>
+            <path class="bp" d="M20 140 H170 L230 160 H380"/>
+            <path class="bp" d="M20 160 H170 L230 140 H380" opacity=".55"/>
+            <rect class="bp" x="120" y="95" width="160" height="30"/>
+            <rect class="bp" x="120" y="175" width="160" height="30"/>
+            <path class="bp2" d="M130 95 V70 M270 95 V70 M130 205 V230 M270 205 V230 M110 70 H290 M110 230 H290"/>
+            <g class="bp2"><path d="M150 110 h10 M175 110 h10 M200 110 h10 M225 110 h10 M250 110 h10"/></g>
+            <text class="bpt" x="140" y="60">PRESIÓN · TEMPERATURA · TIEMPO</text>
+            <text class="bpt" x="150" y="255">ZONA DE EMPALME</text>
+          </svg>
+        </div>
+        <div class="p-info">
+          <span class="tag"><b></b>L.05 · Servicio en terreno</span>
+          <h3 class="d">Mantenimiento en planta</h3>
+          <p>Personal experto para reparaciones rápidas y duraderas: cambios de cinta, recubrimiento de molinos y reemplazo de polines, con productos exclusivos PTC.</p>
+          <table class="spec">
+            <tr><td>Empalmes</td><td>Vulcanizados con control de tiempos, presiones y temperaturas</td></tr>
+            <tr><td>Correas</td><td>Cambio de cintas con enrolladores diseñados por PTC</td></tr>
+            <tr><td>Molinos</td><td>Recubrimiento con equipos técnicos certificados</td></tr>
+            <tr><td>Reparación</td><td>Caucho líquido Mineservice, en servicio en 60 min</td></tr>
+          </table>
+          <div class="row"><a href="#contacto" class="btn btn-cu" data-line="Mantenimiento en planta">Agendar servicio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONFIGURADOR ================= -->
+<section class="cfg" id="configurador">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>03 — Herramienta</span><h2 class="d">Configure<br>su cinta.</h2></div>
+      <p>Arme su requerimiento en segundos y envíelo directo a un especialista. Le responderemos con la especificación técnica y plazos.</p>
+    </div>
+    <div class="cfg-box rv">
+      <div class="cfg-l">
+        <div class="cfg-g">
+          <label>Ancho de cinta <output id="o-w">48"</output></label>
+          <input type="range" id="c-w" min="24" max="120" step="6" value="48">
+          <div class="ticks"><span>24"</span><span>48"</span><span>72"</span><span>96"</span><span>120"</span></div>
+        </div>
+        <div class="cfg-g">
+          <label>Tipo de carcasa</label>
+          <div class="chips" data-g="carcasa"><button class="chip on">Tela EP</button><button class="chip">Steelcord</button></div>
+        </div>
+        <div class="cfg-g">
+          <label>Cubierta</label>
+          <div class="chips" data-g="cubierta"><button class="chip on">Abrasión DIN W</button><button class="chip">Por definir con PTC</button></div>
+        </div>
+        <div class="cfg-g">
+          <label>Aplicación</label>
+          <div class="chips" data-g="app"><button class="chip on">Chancado</button><button class="chip">Overland</button><button class="chip">Planta</button><button class="chip">Acopio</button></div>
+        </div>
+        <div class="cfg-g" style="margin-bottom:0">
+          <label>Servicio adicional</label>
+          <div class="chips" data-g="srv" data-multi><button class="chip on">Empalme en terreno</button><button class="chip">Cambio de cinta</button><button class="chip">Mineservice</button></div>
+        </div>
+      </div>
+      <div class="cfg-r">
+        <div class="belt-prev corners">
+          <svg viewBox="0 0 300 90" id="beltsvg">
+            <rect id="belt" x="100" y="30" width="100" height="22" fill="none" stroke="#f2460c" stroke-width="1.5"/>
+            <line id="cord" x1="100" y1="41" x2="200" y2="41" stroke="#323a43" stroke-dasharray="3 3"/>
+            <text id="beltlbl" x="150" y="76" text-anchor="middle" fill="#7d8892" font-family="JetBrains Mono" font-size="9">48"</text>
+          </svg>
+        </div>
+        <div class="sum mono" id="sum"></div>
+        <button class="btn btn-cu" id="cfg-send">Enviar configuración <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MINESERVICE ================= -->
+<section class="ms">
+  <div class="wrap ms-grid">
+    <div class="rv">
+      <span class="tag"><b></b>04 — Producto exclusivo PTC</span>
+      <h2 class="d">Caucho líquido <span class="c">Mineservice</span></h2>
+      <p class="lead">Sistema elastomérico bicomponente de alto desempeño, libre de tolueno, para reparación de cubiertas. Elevada adherencia y resistencia mecánica: su correa vuelve a operar en una hora.</p>
+      <div class="ms-feats">
+        <div><b>60'</b><span>Puesta en servicio</span></div>
+        <div><b>2K</b><span>Bicomponente</span></div>
+        <div><b>0%</b><span>Tolueno</span></div>
+      </div>
+      <a href="#contacto" class="btn btn-cu" data-line="Caucho líquido Mineservice">Solicitar ficha técnica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="gauge rv" id="gauge">
+      <svg viewBox="0 0 300 300">
+        <g id="gticks"></g>
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#161a1f" stroke-width="18"/>
+        <circle id="arc" cx="150" cy="150" r="118" fill="none" stroke="#f2460c" stroke-width="18" stroke-dasharray="741.4" stroke-dashoffset="741.4" transform="rotate(-90 150 150)"/>
+        <circle cx="150" cy="150" r="96" fill="none" stroke="#242a31"/>
+      </svg>
+      <div class="ctr"><b id="gmin">0</b><span>MINUTOS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section id="servicios" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>05 — Servicios en terreno</span><h2 class="d">Intervención<br>certificada.</h2></div>
+      <p>Equipos técnicos que llegan a faena con herramientas, insumos y procedimientos para reducir al mínimo el tiempo de detención.</p>
+    </div>
+    <div class="svcs rv">
+      <div class="svc"><span class="no">S.01</span><div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="#f2460c" stroke-width="1.6"><rect x="6" y="18" width="44" height="8"/><rect x="6" y="30" width="44" height="8"/><path d="M28 10v8M28 38v8M20 10h16M20 46h16"/></svg></div><h3 class="d">Empalmes vulcanizados</h3><p>Tiempos, presiones y temperaturas correctas para cualquier tipo de empalme, ancho o tensión.</p><ul><li>Tela EP y Steelcord</li><li>Inspección de equipos</li><li>Personal de alta experiencia</li></ul></div>
+      <div class="svc"><span class="no">S.02</span><div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="#f2460c" stroke-width="1.6"><circle cx="18" cy="28" r="12"/><circle cx="18" cy="28" r="4"/><path d="M18 16h30M18 40h30"/><circle cx="44" cy="28" r="5"/></svg></div><h3 class="d">Cambio de cintas</h3><p>Retiro e instalación de correas con enrolladores diseñados exclusivamente por PTC.</p><ul><li>Enrolladores PTC</li><li>Paradas programadas</li><li>Maniobras seguras</li></ul></div>
+      <div class="svc"><span class="no">S.03</span><div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="#f2460c" stroke-width="1.6"><circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="13"/><path d="M28 8v7M28 41v7M8 28h7M41 28h7M14 14l5 5M37 37l5 5M42 14l-5 5M19 37l-5 5"/></svg></div><h3 class="d">Recubrimiento de molinos</h3><p>Recubrimientos ejecutados con equipos certificados para extender la vida útil de activos críticos.</p><ul><li>Molienda</li><li>Elementos de desgaste</li><li>Equipos certificados</li></ul></div>
+      <div class="svc"><span class="no">S.04</span><div class="ic"><svg viewBox="0 0 56 56" fill="none" stroke="#f2460c" stroke-width="1.6"><rect x="6" y="22" width="14" height="10" rx="5" transform="rotate(-30 13 27)"/><rect x="21" y="26" width="14" height="10" rx="5"/><rect x="36" y="22" width="14" height="10" rx="5" transform="rotate(30 43 27)"/><path d="M8 44h40"/></svg></div><h3 class="d">Reemplazo de polines</h3><p>Sustitución programada de polines de carga, retorno e impacto para proteger sus correas.</p><ul><li>Carga · Retorno · Impacto</li><li>Menos vibración</li><li>Mayor vida de correa</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESO ================= -->
+<section class="proc" id="proc">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>06 — Metodología</span><h2 class="d">De la solicitud<br>a la faena.</h2></div>
+      <p>Un proceso trazable, pensado para jefaturas de mantenimiento y abastecimiento que no pueden esperar.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="bar"></div><span class="k">FASE 01</span><h3 class="d">Diagnóstico</h3><p>Levantamos requerimiento, perfil de ruta, tonelaje y condiciones reales de operación.</p></div>
+      <div class="step"><div class="bar"></div><span class="k">FASE 02</span><h3 class="d">Especificación</h3><p>Propuesta técnica con el producto correcto, normas aplicables y plazos claros.</p></div>
+      <div class="step"><div class="bar"></div><span class="k">FASE 03</span><h3 class="d">Suministro</h3><p>Despacho desde nuestras bases en Chile y Perú directo a faena.</p></div>
+      <div class="step"><div class="bar"></div><span class="k">FASE 04</span><h3 class="d">Instalación</h3><p>Montaje, empalme y acompañamiento técnico en terreno hasta la puesta en marcha.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRESENCIA ================= -->
+<section id="presencia">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>07 — Red regional</span><h2 class="d">Base en el norte.<br>Alcance andino.</h2></div>
+      <p>Presencia local inmediata donde se concentra la gran minería, con stock para sus paradas de planta.</p>
+    </div>
+    <div class="pres-grid rv">
+      <div class="pres-map grid-bg">
+        <svg viewBox="0 0 300 420" aria-label="Mapa de presencia">
+          <defs><pattern id="hx" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#323a43"/></pattern></defs>
+          <path d="M178 14 L222 34 L240 70 L228 104 L254 132 L270 176 L256 220 L232 246 L214 290 L196 334 L176 378 L154 412 L140 400 L146 356 L134 318 L120 280 L106 240 L90 208 L72 168 L60 126 L76 92 L108 70 L138 44 Z" fill="url(#hx)" stroke="#323a43"/>
+          <path d="M120 214 L156 286 M120 214 L204 228 M156 286 L204 228 M176 16 L120 214" stroke="#f2460c" stroke-dasharray="3 5" opacity=".55"/>
+          <g><circle class="pin-p" cx="176" cy="16" r="5" fill="#f2460c"/><circle cx="176" cy="16" r="5" fill="#f2460c"/><text x="188" y="20" fill="#7d8892" font-family="JetBrains Mono" font-size="10">PANAMÁ</text></g>
+          <g><circle class="pin-p" cx="120" cy="214" r="6" fill="#f2460c" style="animation-delay:.6s"/><circle cx="120" cy="214" r="6" fill="#f2460c"/><text x="22" y="218" fill="#f4f6f8" font-family="Archivo" font-weight="800" font-size="15" style="font-stretch:70%">AREQUIPA</text></g>
+          <g><circle class="pin-p" cx="204" cy="228" r="5" fill="#f2460c" style="animation-delay:1.2s"/><circle cx="204" cy="228" r="5" fill="#f2460c"/><text x="216" y="232" fill="#7d8892" font-family="JetBrains Mono" font-size="10">BOLIVIA</text></g>
+          <g><circle class="pin-p" cx="156" cy="286" r="6" fill="#f2460c" style="animation-delay:1.8s"/><circle cx="156" cy="286" r="6" fill="#f2460c"/><text x="42" y="290" fill="#f4f6f8" font-family="Archivo" font-weight="800" font-size="15" style="font-stretch:70%">ANTOFAGASTA</text></g>
+        </svg>
+      </div>
+      <div class="pres-list">
+        <div class="base"><span class="cc">CL</span><div><h3 class="d">Antofagasta</h3><p>Barrio Industrial, Sector La Negra</p></div><span class="st">BASE OPERATIVA</span></div>
+        <div class="base"><span class="cc">PE</span><div><h3 class="d">Arequipa</h3><p>Parque Industrial Río Seco</p></div><span class="st">BASE OPERATIVA</span></div>
+        <div class="base"><span class="cc">BO</span><div><h3 class="d">Bolivia</h3><p>Cobertura comercial y logística</p></div><span class="st alt">PRESENCIA</span></div>
+        <div class="base"><span class="cc">PA</span><div><h3 class="d">Panamá</h3><p>Cobertura comercial y logística</p></div><span class="st alt">PRESENCIA</span></div>
+        <div class="pres-adv"><div><b>Ingeniería europea</b><span>Más de 10 años perfeccionando diseños</span></div><div><b>Fabricación a escala</b><span>Producción bajo normas ISO</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALIDAD ================= -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="sh rv">
+      <div><span class="tag"><b></b>08 — Respaldo</span><h2 class="d">Probado antes<br>de salir.</h2></div>
+      <p>Ingeniería europea, fabricación certificada y soluciones propias que ningún otro proveedor ofrece.</p>
+    </div>
+    <div class="qa-grid">
+      <div class="qa rv corners"><div class="big">ISO<small>14001 · 28001</small></div><h3 class="d">Calidad certificada</h3><p>Instalaciones modernas bajo normas ISO. Cada cinta pasa por un testeo destructivo DIN antes de ser enviada.</p></div>
+      <div class="qa rv corners"><div class="big">EU<small>Diseño europeo</small></div><h3 class="d">Ingeniería probada</h3><p>Más de 10 años perfeccionando la ingeniería de nuestras cintas en Europa, con la mejor combinación de valor y calidad.</p></div>
+      <div class="qa rv corners"><div class="big">PTC<small>Soluciones propias</small></div><h3 class="d">Desarrollo exclusivo</h3><p>Caucho líquido Mineservice de curado rápido y enrolladores de cintas diseñados exclusivamente por PTC.</p></div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div class="mq">
+    <span>Continuidad operativa</span><span>Chancado</span><span>CAEX</span><span>Steelcord</span><span>Molienda</span><span>DIN W</span>
+    <span>Continuidad operativa</span><span>Chancado</span><span>CAEX</span><span>Steelcord</span><span>Molienda</span><span>DIN W</span>
+  </div></div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" style="padding-top:60px">
+  <div class="wrap faq-grid">
+    <div class="rv"><span class="tag"><b></b>09 — Preguntas frecuentes</span><h2 class="d">Lo que nos<br>preguntan.</h2></div>
+    <div class="acc rv">
+      <div class="q"><button>¿Despachan directamente a faena?<i>+</i></button><div class="a"><p>Sí. Desde nuestras bases en Antofagasta y Arequipa llegamos directo a faena con el stock necesario para sus paradas de planta, además de cobertura en Bolivia y Panamá.</p></div></div>
+      <div class="q"><button>¿Qué anchos de cinta pueden suministrar?<i>+</i></button><div class="a"><p>Desde 24" hasta 120", con carcasa de tela EP o cables de acero (Steelcord) y cubiertas de resistencia extrema a la abrasión bajo norma DIN W.</p></div></div>
+      <div class="q"><button>¿Realizan el empalme en terreno?<i>+</i></button><div class="a"><p>Sí. Ejecutamos empalmes vulcanizados controlando tiempos, presiones y temperaturas, para cualquier tipo de empalme, ancho o tensión, con personal de alta experiencia.</p></div></div>
+      <div class="q"><button>¿Qué es el caucho líquido Mineservice?<i>+</i></button><div class="a"><p>Es un producto propio de PTC: un sistema elastomérico bicomponente libre de tolueno para reparar cubiertas de correas, con puesta en servicio en solo 60 minutos.</p></div></div>
+      <div class="q"><button>¿Trabajan repuestos OEM o alternativos?<i>+</i></button><div class="a"><p>Ambos. Proveemos repuestos OEM y alternativos de primera calidad para los principales modelos de camiones mineros y equipos de carguío.</p></div></div>
+      <div class="q"><button>¿Cómo aseguran la calidad de las cintas?<i>+</i></button><div class="a"><p>Fabricamos en instalaciones bajo normas ISO 14001 y 28001, y cada cinta pasa por un testeo destructivo DIN antes de ser despachada.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="cta" id="contacto">
+  <div class="wrap cta-grid">
+    <div class="cta-l">
+      <span class="tag"><b></b>10 — Contacto</span>
+      <h2 class="d">Su próxima parada, sin sorpresas.</h2>
+      <p>Cuéntenos qué necesita. Un especialista le responderá con una propuesta técnica y plazos de entrega.</p>
+      <div class="direct">
+        <a href="https://wa.me/56968462700" target="_blank" rel="noopener">WhatsApp Ventas <small>RESPUESTA DIRECTA →</small></a>
+        <a href="tel:+56968462700">+56 9 6846 2700 <small>LLAMAR →</small></a>
+        <a href="mailto:contacto@ptcmining.cl">contacto@ptcmining.cl <small>ESCRIBIR →</small></a>
+      </div>
+    </div>
+    <div class="cta-r corners">
+      <h3 class="d">Solicitud de propuesta</h3>
+      <p class="sub">Se enviará por WhatsApp con su requerimiento ya redactado.</p>
+      <form id="form">
+        <div class="f"><label for="fn">Nombre</label><input id="fn" required></div>
+        <div class="f"><label for="fe">Empresa / Faena</label><input id="fe" required></div>
+        <div class="f"><label for="fc">Cargo</label><input id="fc"></div>
+        <div class="f"><label for="fl">Línea</label>
+          <select id="fl"><option>Cintas transportadoras</option><option>Neumáticos OTR</option><option>Polines y rodillos</option><option>Repuestos CAEX</option><option>Mantenimiento en planta</option><option>Caucho líquido Mineservice</option></select></div>
+        <div class="f full"><label for="fm">Requerimiento</label><textarea id="fm" placeholder="Medidas, cantidades, plazos, ubicación de faena…"></textarea></div>
+        <button class="btn btn-cu" type="submit">Enviar solicitud <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div>
+        <a href="#top" class="logo"><img class="lg" src="assets/logo-blanco.svg" alt="PTC · Patagon Technologies Corp"></a>
+        <p style="margin-top:20px;max-width:300px">Soluciones integrales y continuidad operativa para la gran minería. Más de 20 años de experiencia comprobada.</p>
+      </div>
+      <div><h4>Suministros</h4><ul><li><a href="#lineas">Cintas transportadoras</a></li><li><a href="#lineas">Neumáticos OTR</a></li><li><a href="#lineas">Polines y rodillos</a></li><li><a href="#lineas">Repuestos CAEX</a></li><li><a href="#lineas">Mineservice</a></li></ul></div>
+      <div><h4>Operaciones</h4><ul><li>Antofagasta, Chile<br>Barrio Industrial, La Negra</li><li>Arequipa, Perú<br>Parque Industrial Río Seco</li></ul></div>
+      <div><h4>Contacto</h4><ul><li><a href="tel:+56968462700">+56 9 6846 2700</a></li><li>contacto@ptcmining.cl</li><li><a href="https://wa.me/56968462700" target="_blank" rel="noopener">WhatsApp Ventas</a></li><li><a href="#configurador">Configurador de cinta</a></li></ul></div>
+    </div>
+    <div class="fbig">PTC Mining</div>
+    <div class="fb"><span>© 2026 PTC Mining (Patagon Technology Corp). Todos los derechos reservados.</span><div><a href="#">Términos</a><a href="#">Privacidad</a></div></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/56968462700" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- Terreno 3D del hero ---------- */
+(function(){
+  const cv=document.getElementById('terrain');
+  if(!window.THREE){return}
+  let renderer;
+  try{renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true})}catch(e){return}
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.Fog(0x0a0c0e,40,150);
+  const cam=new THREE.PerspectiveCamera(55,1,.1,400);
+  cam.position.set(0,22,58);
+  const SEG=140,SIZE=220;
+  const geo=new THREE.PlaneGeometry(SIZE,SIZE,SEG,SEG);
+  geo.rotateX(-Math.PI/2);
+  const pos=geo.attributes.position;
+  const base=new Float32Array(pos.count);
+  for(let i=0;i<pos.count;i++){
+    const x=pos.getX(i),z=pos.getZ(i);
+    // terreno tipo rajo: bancos escalonados + ondulación
+    const r=Math.sqrt((x-20)*(x-20)+(z+10)*(z+10));
+    let pit=-Math.max(0,38-r)*0.55;
+    pit=Math.round(pit/2.2)*2.2;
+    const h=Math.sin(x*.06)*3+Math.cos(z*.05)*3+Math.sin((x+z)*.11)*1.4+pit;
+    base[i]=h;pos.setY(i,h);
+  }
+  geo.computeVertexNormals();
+  const wire=new THREE.LineSegments(new THREE.WireframeGeometry(geo),new THREE.LineBasicMaterial({color:0xf2460c,transparent:true,opacity:.16}));
+  scene.add(wire);
+  const pts=new THREE.Points(geo,new THREE.PointsMaterial({color:0xff6a3a,size:.22,transparent:true,opacity:.7}));
+  scene.add(pts);
+  // línea de escaneo
+  const scanGeo=new THREE.PlaneGeometry(SIZE,1.2);
+  const scan=new THREE.Mesh(scanGeo,new THREE.MeshBasicMaterial({color:0xf2460c,transparent:true,opacity:.18,side:THREE.DoubleSide}));
+  scan.rotation.x=-Math.PI/2;scan.position.y=4;scene.add(scan);
+  function size(){const w=cv.clientWidth,h=cv.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  size();addEventListener('resize',size);
+  let mx=0,my=0;addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  const t0=performance.now();let vis=true;
+  new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);
+  (function loop(){
+    requestAnimationFrame(loop);if(!vis)return;
+    const t=(performance.now()-t0)/1000;
+    wire.rotation.y=pts.rotation.y=t*.025;
+    scan.position.z=((t*14)%SIZE)-SIZE/2;
+    cam.position.x+=(mx*16-cam.position.x)*.03;
+    cam.position.y+=(22-my*8-cam.position.y)*.03;
+    cam.lookAt(8,-4,0);
+    renderer.render(scene,cam);
+  })();
+})();
+
+/* ---------- Header ---------- */
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>30),{passive:true});
+const nav=document.getElementById('nav');
+document.getElementById('burger').onclick=()=>nav.classList.toggle('open');
+nav.querySelectorAll('a').forEach(a=>a.onclick=()=>nav.classList.remove('open'));
+
+/* ---------- Flujo de la operación ---------- */
+const FLOW=[
+ {t:'Extracción y carguío',p:'Equipos de carguío expuestos a impacto y desgaste continuo. Mantener disponibles los elementos críticos evita detener el ciclo completo.',l:[['Elementos de desgaste GET','L.04'],['Protecciones de tolva','L.04'],['Sistemas hidráulicos','L.04']]},
+ {t:'Transporte CAEX',p:'La flota de extracción define el ritmo de la mina. Neumáticos y componentes adecuados a su perfil de ruta reducen detenciones y costos.',l:[['Neumáticos OTR ultra alta capacidad','L.02'],['Frenos húmedos y fricción','L.04'],['Motor y tren de potencia','L.04']]},
+ {t:'Chancado primario',p:'El punto de mayor abrasión e impacto. Cintas y polines de impacto especificados para mineral pesado.',l:[['Cintas DIN W alta abrasión','L.01'],['Polines de impacto','L.03'],['Empalme vulcanizado','L.05']]},
+ {t:'Correas transportadoras',p:'Kilómetros de correa que no pueden fallar. Cintas EP o Steelcord, polines de bajo TIR y reparación rápida.',l:[['Cintas EP / Steelcord 24"–120"','L.01'],['Polines de carga y retorno','L.03'],['Caucho Mineservice 60 min','L.05']]},
+ {t:'Molienda y planta',p:'Activos críticos que requieren intervenciones precisas y personal certificado.',l:[['Recubrimiento de molinos','L.05'],['Reemplazo de polines','L.05'],['Cambio de cintas','L.05']]},
+ {t:'Paradas de planta',p:'Ventanas cortas y planificadas al minuto. Llegamos con stock y equipos listos para ejecutar.',l:[['Stock directo a faena','CL · PE'],['Cambio de cintas con enrolladores PTC','L.05'],['Empalmes en terreno','L.05']]}
+];
+function setFlow(i){
+  document.querySelectorAll('.stage').forEach(s=>s.classList.toggle('on',+s.dataset.s===i));
+  const f=FLOW[i];
+  document.getElementById('fl-n').innerHTML='<b></b>Etapa 0'+(i+1);
+  document.getElementById('fl-t').textContent=f.t;
+  document.getElementById('fl-p').textContent=f.p;
+  document.getElementById('fl-l').innerHTML=f.l.map(x=>`<a href="#lineas">${x[0]}<span>${x[1]}</span></a>`).join('');
+}
+document.querySelectorAll('.stage').forEach(s=>s.addEventListener('click',()=>setFlow(+s.dataset.s)));
+setFlow(0);
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll('.tab').forEach(tb=>tb.addEventListener('click',()=>{
+  const n=tb.dataset.t;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===tb));
+  document.querySelectorAll('.panel').forEach(p=>{
+    const on=p.dataset.p===n;p.classList.toggle('on',on);
+    if(on){const s=p.querySelector('.p-draw svg');s.classList.remove('draw-anim');void s.offsetWidth;s.classList.add('draw-anim')}
+  });
+}));
+// dibujo de banda de rodadura
+(function(){const g=document.getElementById('tread');let h='';
+  for(let i=0;i<36;i++){const a=i*10*Math.PI/180,a2=a+.09;
+    h+=`<path d="M${200+98*Math.cos(a)} ${150+98*Math.sin(a)} L${200+125*Math.cos(a2)} ${150+125*Math.sin(a2)}"/>`}
+  g.innerHTML=h})();
+
+/* ---------- Configurador ---------- */
+const cw=document.getElementById('c-w'),ow=document.getElementById('o-w');
+function sel(g){return [...document.querySelectorAll(`[data-g="${g}"] .chip.on`)].map(c=>c.textContent)}
+function updCfg(){
+  const w=+cw.value;ow.textContent=w+'"';
+  const bw=40+(w-24)/96*220;const x=150-bw/2;
+  const b=document.getElementById('belt'),c=document.getElementById('cord');
+  b.setAttribute('x',x);b.setAttribute('width',bw);c.setAttribute('x1',x);c.setAttribute('x2',x+bw);
+  const steel=sel('carcasa')[0]==='Steelcord';
+  c.setAttribute('stroke',steel?'#ff6a3a':'#323a43');c.setAttribute('stroke-dasharray',steel?'1 4':'3 3');
+  document.getElementById('beltlbl').textContent=w+'" · '+sel('carcasa')[0].toUpperCase();
+  const s=sel('srv');
+  document.getElementById('sum').innerHTML=[['Ancho',w+'"'],['Carcasa',sel('carcasa')[0]],['Cubierta',sel('cubierta')[0]],['Aplicación',sel('app')[0]],['Servicios',s.length?s.join(' + '):'Ninguno']].map(r=>`<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join('');
+}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(!c)return;
+  if(g.hasAttribute('data-multi'))c.classList.toggle('on');
+  else g.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c));
+  updCfg();
+}));
+cw.addEventListener('input',updCfg);updCfg();
+document.getElementById('cfg-send').onclick=()=>{
+  const s=sel('srv');
+  const msg=`Hola PTC Mining, quiero cotizar una cinta transportadora:\n\n• Ancho: ${cw.value}"\n• Carcasa: ${sel('carcasa')[0]}\n• Cubierta: ${sel('cubierta')[0]}\n• Aplicación: ${sel('app')[0]}\n• Servicios: ${s.length?s.join(', '):'Ninguno'}`;
+  open('https://wa.me/56968462700?text='+encodeURIComponent(msg),'_blank');
+};
+
+/* ---------- Gauge Mineservice ---------- */
+(function(){const g=document.getElementById('gticks');let h='';
+  for(let i=0;i<60;i++){const a=i*6*Math.PI/180,big=i%5===0,r1=big?136:140,r2=146;
+    h+=`<line x1="${150+r1*Math.sin(a)}" y1="${150-r1*Math.cos(a)}" x2="${150+r2*Math.sin(a)}" y2="${150-r2*Math.cos(a)}" stroke="${big?'#7d8892':'#323a43'}" stroke-width="${big?2:1}"/>`;
+    if(big){const r3=160;h+=`<text x="${150+r3*Math.sin(a)}" y="${153-r3*Math.cos(a)}" fill="#7d8892" font-family="JetBrains Mono" font-size="9" text-anchor="middle">${i}</text>`}}
+  g.innerHTML=h})();
+
+/* ---------- FAQ ---------- */
+document.querySelectorAll('.q button').forEach(b=>b.addEventListener('click',()=>{
+  const q=b.parentElement,a=q.querySelector('.a'),open=q.classList.toggle('open');
+  a.style.maxHeight=open?a.scrollHeight+'px':0;
+}));
+
+/* ---------- Pre-selección de línea en formulario ---------- */
+document.querySelectorAll('[data-line]').forEach(a=>a.addEventListener('click',()=>{document.getElementById('fl').value=a.dataset.line}));
+
+/* ---------- Formulario ---------- */
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+  const msg=`Hola PTC Mining, solicito una propuesta técnica.\n\nNombre: ${v('fn')}\nEmpresa/Faena: ${v('fe')}\nCargo: ${v('fc')}\nLínea: ${v('fl')}\nRequerimiento: ${v('fm')}`;
+  open('https://wa.me/56968462700?text='+encodeURIComponent(msg),'_blank');
+});
+
+/* ---------- Contadores y reveal ---------- */
+function count(el,to,d=1800){const t0=performance.now();(function f(t){const p=Math.min((t-t0)/d,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
+const io=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return;const el=en.target;el.classList.add('in');
+  el.querySelectorAll&&el.querySelectorAll('[data-c]').forEach(n=>count(n,+n.dataset.c));
+  if(el.id==='gauge'){document.getElementById('arc').style.strokeDashoffset=0;count(document.getElementById('gmin'),60,2600)}
+  io.unobserve(el);
+}),{threshold:.18});
+document.querySelectorAll('.rv,#proc').forEach(el=>io.observe(el));
+</script>
+<a class="dla-back" href="index.html" aria-label="Volver a las propuestas">← Propuestas · <b>2 de 3</b></a>
+<style>.dla-back{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;font:600 13px/1 system-ui,-apple-system,'Segoe UI',sans-serif;color:#fff;background:rgba(17,26,34,.88);backdrop-filter:blur(8px);padding:11px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none}.dla-back b{color:#ff6a3a}.dla-back:hover{background:#111a22}@media (max-width:860px){.dla-back{bottom:calc(20px + env(safe-area-inset-bottom,0px))}}</style>
+</body>
+</html>

@@ -56,11 +56,15 @@ button{font:inherit;cursor:pointer;color:inherit;background:none;border:0}
 .open:hover{border-color:var(--txt);color:var(--white)}
 .open svg{width:14px;height:14px}
 .info{font-size:13px;font-weight:600;padding:9px 12px;border-radius:8px;color:var(--mute)}
+.pick{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;padding:10px 14px;border-radius:8px;background:var(--or);color:#fff;white-space:nowrap}
+.pick:hover{background:#ff5a1f}
+.pick svg{width:16px;height:16px}
 .info:hover{color:var(--white)}
 
 .stage{flex:1;position:relative;min-height:0;background:var(--stage);display:flex;justify-content:center;align-items:stretch}
 .frame-wrap{position:relative;width:100%;height:100%;transition:width .35s ease,height .35s ease,margin .35s ease}
-iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0;background:#fff;visibility:hidden}
+iframe.on{visibility:visible}
 .stage.phone{align-items:center;padding-block:18px}
 .stage.phone .frame-wrap{width:390px;height:min(800px,100%);border-radius:34px;overflow:hidden;box-shadow:0 0 0 10px #05080a,0 0 0 11px #2c3640,0 30px 60px rgba(0,0,0,.55)}
 .loading{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--mute);background:var(--stage);transition:opacity .3s;pointer-events:none}
@@ -75,7 +79,7 @@ iframe{display:block;width:100%;height:100%;border:0;background:#fff}
   .tabs::-webkit-scrollbar{display:none}
   .seg,.info{display:none}
 }
-@media (max-width:420px){.open span{display:none}.tab{padding:8px 12px}}
+@media (max-width:420px){.open span,.pick span{display:none}.tab{padding:8px 12px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -97,33 +101,42 @@ iframe{display:block;width:100%;height:100%;border:0;background:#fff}
       <button id="v-phone" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Celular</button>
     </div>
     <a class="info" href="resumen.html">Resumen</a>
+    <a class="pick" id="pick" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Elegir esta propuesta</span></a>
     <a class="open" id="open" href="propuesta-1.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg><span>Pantalla completa</span></a>
   </div>
 </header>
 
 <main class="stage" id="stage">
   <div class="frame-wrap">
-    <iframe id="frame" title="Propuesta de sitio web PTC" src="propuesta-1.html"></iframe>
+    <iframe id="f1" title="Propuesta 1: Corporativa" data-src="propuesta-1.html"></iframe>
+    <iframe id="f2" title="Propuesta 2: Ingeniería digital" data-src="propuesta-2.html"></iframe>
+    <iframe id="f3" title="Propuesta 3: Catálogo técnico" data-src="propuesta-3.html"></iframe>
     <div class="loading" id="loading">CARGANDO PROPUESTA…</div>
   </div>
 </main>
 
 <script>
-const frame=document.getElementById('frame'),loading=document.getElementById('loading'),open=document.getElementById('open'),stage=document.getElementById('stage');
+const NAMES={'1':'Propuesta 1: Corporativa','2':'Propuesta 2: Ingeniería digital','3':'Propuesta 3: Catálogo técnico'};
+const loading=document.getElementById('loading'),open=document.getElementById('open'),pick=document.getElementById('pick'),stage=document.getElementById('stage');
 const tabs=[...document.querySelectorAll('.tab')];
-let current=null;
+const frames={'1':document.getElementById('f1'),'2':document.getElementById('f2'),'3':document.getElementById('f3')};
+function load(n){const f=frames[n];if(!f.src){f.addEventListener('load',()=>{f.dataset.ready='1';if(f.classList.contains('on'))setTimeout(()=>loading.classList.add('done'),200)},{once:true});f.src=f.dataset.src}}
 function show(n){
-  if(!['1','2','3'].includes(n))n='1';
+  if(!frames[n])n='1';
   tabs.forEach(t=>t.setAttribute('aria-current',t.dataset.p===n));
-  open.href='propuesta-'+n+'.html';
-  if(current!==n){current=n;loading.classList.remove('done');frame.src='propuesta-'+n+'.html'}
+  Object.entries(frames).forEach(([k,f])=>f.classList.toggle('on',k===n));
+  open.href=frames[n].dataset.src;
+  pick.href='https://wa.me/56959578467?text='+encodeURIComponent('Hola Salvador, en PTC revisamos las propuestas del sitio web y elegimos la '+NAMES[n]+'.');
+  load(n);
+  loading.classList.toggle('done',frames[n].dataset.ready==='1');
   const t=tabs.find(t=>t.dataset.p===n);t&&t.scrollIntoView({inline:'center',block:'nearest'});
 }
-frame.addEventListener('load',()=>setTimeout(()=>loading.classList.add('done'),250));
-setTimeout(()=>loading.classList.add('done'),6000);
 function fromHash(){const m=location.hash.match(/^#p([123])$/);show(m?m[1]:'1')}
 addEventListener('hashchange',fromHash);fromHash();
-document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(['1','2','3'].includes(e.key))location.hash='p'+e.key});
+// precargar las otras dos para que el cambio sea instantáneo
+addEventListener('load',()=>setTimeout(()=>['1','2','3'].forEach(load),1200));
+setTimeout(()=>loading.classList.add('done'),7000);
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;if(['1','2','3'].includes(e.key))location.hash='p'+e.key});
 const vd=document.getElementById('v-desk'),vp=document.getElementById('v-phone');
 function view(phone){stage.classList.toggle('phone',phone);vd.setAttribute('aria-pressed',!phone);vp.setAttribute('aria-pressed',phone)}
 vd.onclick=()=>view(false);vp.onclick=()=>view(true);

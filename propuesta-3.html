@@ -102,6 +102,14 @@ h1,h2,h3{font-family:var(--disp);text-transform:uppercase;line-height:.92;letter
 .res li::before{content:"";width:8px;height:8px;background:var(--or);margin-top:8px}
 .res .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 
+.vband{position:relative;height:clamp(320px,52vw,560px);overflow:hidden;background:#16191c;color:#fff}
+.vband video,.vband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vband::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,21,24,.85) 0%,rgba(18,21,24,.35) 55%,rgba(18,21,24,.1) 100%)}
+.vband .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-block:48px}
+.vband .kicker{color:#ff8a5c}
+.vband h2{font-size:clamp(44px,6.4vw,96px);font-weight:900;color:#fff;margin:12px 0 10px;max-width:900px}
+.vband p{max-width:520px;color:#d9dee2;font-size:17px}
+@media (prefers-reduced-motion:reduce){.vband video{display:none}}
 /* secciones */
 section{padding-block:100px}
 .sh{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:46px}
@@ -307,6 +315,20 @@ footer .logo img{height:48px}
         <div class="res" id="res"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="vband" aria-label="Operación minera" style="padding:0">
+  <img src="assets/hero-poster.jpg" alt="">
+  <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg" aria-hidden="true">
+    <source src="assets/hero.mp4" type="video/mp4" media="(min-width: 761px)">
+    <source src="assets/hero-sd.mp4" type="video/mp4">
+  </video>
+  <div class="wrap">
+    <span class="kicker">Del rajo a la planta</span>
+    <h2>Suministro que no detiene la operación</h2>
+    <p>Correas, polines, neumáticos y repuestos para faenas que trabajan las 24 horas.</p>
   </div>
 </section>
 

@@ -266,6 +266,10 @@ footer .logo img{height:48px}
   form{padding:22px 16px}
   .util .l{display:none}
 }
+.intra{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border:1.5px solid var(--ink);border-radius:3px}
+.intra svg{width:15px;height:15px}
+.intra:hover{background:var(--ink);color:#fff!important}
+@media (max-width:820px){.nav .intra{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:14px 0}}
 </style>
 </head>
 <body>
@@ -281,6 +285,7 @@ footer .logo img{height:48px}
       <a href="#calculadora">Calculadora</a>
       <a href="#mineservice">Mineservice</a>
       <a href="#fichas">Fichas técnicas</a>
+      <a class="intra" href="https://intranet.ptctech.cl" target="_blank" rel="noopener" title="Acceso para colaboradores de PTC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>Intranet</a>
     </nav>
     <a href="#contacto" class="btn btn-or">Solicitar propuesta</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
@@ -425,7 +430,7 @@ footer .logo img{height:48px}
         <div class="site"><b class="cc">PE</b><div><h3>Arequipa</h3><p>Parque Industrial Río Seco</p></div></div>
         <div class="site"><b class="cc">BO</b><div><h3>Bolivia · Panamá</h3><p>Cobertura comercial y logística</p></div></div>
       </div>
-      <div class="contact"><span>+56 9 6846 2700</span><span>contacto@ptctech.cl</span><span>www.ptctech.cl</span></div>
+      <div class="contact"><span>+56 9 6846 2700</span><span>contacto@ptctech.cl</span><span>www.ptctech.cl</span><a href="https://intranet.ptctech.cl" target="_blank" rel="noopener" style="color:var(--or-d)">Intranet colaboradores →</a></div>
     </div>
     <form id="form" novalidate>
       <div class="full"><h3>Solicitud de propuesta técnica</h3><p class="sub">Se abrirá WhatsApp con su requerimiento ya redactado.</p></div>

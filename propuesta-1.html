@@ -294,6 +294,12 @@ footer .logo{color:#fff}
   .op{padding:24px}
   .norms .wrap{gap:14px}
 }
+.intra{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1.5px solid rgba(255,255,255,.55);border-radius:6px;opacity:1!important}
+.intra svg{width:15px;height:15px}
+.intra:hover{border-color:var(--or);color:var(--or)!important}
+.intra::after{display:none!important}
+.hdr.solid .intra{border-color:var(--line)}
+@media (max-width:860px){.nav .intra{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:14px 0}}
 </style>
 </head>
 <body>
@@ -310,6 +316,7 @@ footer .logo{color:#fff}
       <a href="#servicios">Servicios</a>
       <a href="#operaciones">Operaciones</a>
       <a href="#preguntas">Preguntas</a>
+      <a class="intra" href="https://intranet.ptctech.cl" target="_blank" rel="noopener" title="Acceso para colaboradores de PTC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>Intranet</a>
     </nav>
     <a href="#cotizar" class="btn btn-or">Cotizar proyecto</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
@@ -511,7 +518,7 @@ footer .logo{color:#fff}
       <div><a href="#inicio" class="logo"><img class="lg" src="assets/logo-blanco.svg" alt="PTC · Patagon Technologies Corp"></a><p style="margin-top:18px;max-width:300px">Soluciones integrales y continuidad operativa para la gran minería. Más de 20 años de experiencia comprobada.</p></div>
       <div><h4>Suministros</h4><ul><li><a href="#suministros">Cintas transportadoras</a></li><li><a href="#suministros">Neumáticos OTR</a></li><li><a href="#suministros">Polines y rodillos</a></li><li><a href="#suministros">Repuestos CAEX</a></li><li><a href="#servicios">Mantenimiento en planta</a></li></ul></div>
       <div><h4>Operaciones</h4><ul><li>Antofagasta, Chile<br>Barrio Industrial, La Negra</li><li>Arequipa, Perú<br>Parque Industrial Río Seco</li></ul></div>
-      <div><h4>Contacto</h4><ul><li>+56 9 6846 2700</li><li>contacto@ptctech.cl</li><li>www.ptctech.cl</li><li><a href="https://wa.me/56968462700" target="_blank" rel="noopener">WhatsApp Ventas</a></li></ul></div>
+      <div><h4>Contacto</h4><ul><li>+56 9 6846 2700</li><li>contacto@ptctech.cl</li><li>www.ptctech.cl</li><li><a href="https://intranet.ptctech.cl" target="_blank" rel="noopener">Intranet colaboradores</a></li><li><a href="https://wa.me/56968462700" target="_blank" rel="noopener">WhatsApp Ventas</a></li></ul></div>
     </div>
     <div class="fb"><span>© 2026 PTC · Patagon Technologies Corp. Todos los derechos reservados.</span><span>Términos · Privacidad</span></div>
   </div>
